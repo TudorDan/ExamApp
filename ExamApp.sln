@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ExamApp.UI", "ExamApp.UI\ExamApp.UI.njsproj", "{A09FD86F-DC78-4B14-909E-9F27B709C719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamApp.Domain", "ExamApp.Domain\ExamApp.Domain.csproj", "{7AAC1ED7-A7A6-4046-8E8D-60DCE1D50088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamApp.Domain", "ExamApp.Domain\ExamApp.Domain.csproj", "{7AAC1ED7-A7A6-4046-8E8D-60DCE1D50088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamApp.Data", "ExamApp.Data\ExamApp.Data.csproj", "{C5659DBF-09BB-411B-B898-062AD691C8EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamApp.Data", "ExamApp.Data\ExamApp.Data.csproj", "{C5659DBF-09BB-411B-B898-062AD691C8EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamApp.Logic", "ExamApp.Logic\ExamApp.Logic.csproj", "{AA2A8D63-31CC-4B11-8432-A60AB5896BF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamApp.Logic", "ExamApp.Logic\ExamApp.Logic.csproj", "{AA2A8D63-31CC-4B11-8432-A60AB5896BF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamApp.API", "ExamApp.API\ExamApp.API.csproj", "{6870A5AE-6329-47DC-A37E-87F1EEB78CD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamApp.API", "ExamApp.API\ExamApp.API.csproj", "{6870A5AE-6329-47DC-A37E-87F1EEB78CD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
