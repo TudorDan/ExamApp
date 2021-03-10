@@ -31,7 +31,7 @@ namespace ExamApp.Logic.Tests
                 var test = await _context.Tests.FindAsync(request.Id);
 
                 if (test == null)
-                    throw new Exception("Could not find activity");
+                    throw new Exception("Could not find test");
 
                 test.Title = request.Title ?? test.Title;
                 test.Description = request.Description ?? test.Description;
