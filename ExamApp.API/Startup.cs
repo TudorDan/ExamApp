@@ -1,4 +1,6 @@
 using ExamApp.Data;
+using ExamApp.Logic.Tests;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,7 @@ namespace ExamApp.API
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddControllers();
         }
 
