@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamApp.Logic", "ExamApp.Lo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamApp.API", "ExamApp.API\ExamApp.API.csproj", "{6870A5AE-6329-47DC-A37E-87F1EEB78CD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamApp.UI", "ExamApp.UI\ExamApp.UI.csproj", "{3D4A7B2A-650C-4221-8D03-3C5D7B0B46DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6870A5AE-6329-47DC-A37E-87F1EEB78CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6870A5AE-6329-47DC-A37E-87F1EEB78CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6870A5AE-6329-47DC-A37E-87F1EEB78CD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D4A7B2A-650C-4221-8D03-3C5D7B0B46DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D4A7B2A-650C-4221-8D03-3C5D7B0B46DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D4A7B2A-650C-4221-8D03-3C5D7B0B46DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D4A7B2A-650C-4221-8D03-3C5D7B0B46DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
