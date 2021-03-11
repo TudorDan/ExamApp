@@ -1,3 +1,0 @@
-# ExamApp.UI
-
-
