@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,18 @@ namespace ExamApp.API
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddControllers();
+
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.CustomSchemaIds(type => type.FullName);
+                setupAction.SwaggerDoc(
+                    "ExamAppOpenAPISpecification", 
+                    new OpenApiInfo 
+                    {
+                        Title = "ExamApp API",
+                        Version = "1.0"
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,9 +56,16 @@ namespace ExamApp.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(setupAction =>
+                {
+                    setupAction.SwaggerEndpoint(
+                        "/swagger/ExamAppOpenAPISpecification/swagger.json",
+                        "ExamApp API");
+                });
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();            
 
             app.UseRouting();
 
