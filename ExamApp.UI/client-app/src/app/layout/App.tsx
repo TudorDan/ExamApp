@@ -1,34 +1,33 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ITest } from "../models/test";
+import NavBar from "../../features/nav/NavBar";
+import Home from "../../features/home/Home";
+import About from "../../features/about/About";
+import TestList from "../../features/list/TestList";
 
-class App extends Component {
-    state = {
-        tests: []
-    }
+const App = () => {
+  const [tests, setTests] = useState<ITest[]>([]);
 
-    componentDidMount() {
-        axios.get('http://localhost:34565/api/tests')
-            .then((response) => {
-                this.setState({
-                    tests: response.data
-                })
-            })
-    }
+  useEffect(() => {
+    axios.get<ITest[]>("http://localhost:34565/api/tests").then((response) => {
+      setTests(response.data);
+    });
+  }, []);
 
-    render() {
-        return (
-            <div className='App'>
-                <header className='App-header'>
-                    
-                    <ul>
-                        {this.state.tests.map((test: any) => (
-                            <li key={test.id}>{test.title}</li>
-                        ))}
-                    </ul>
-                </header>
-            </div>
-        )
-    }
-}
+  return (
+    <>
+      <NavBar />
+
+      <Home />
+
+      <About />
+
+      <main id="main">
+        <TestList tests={tests} />
+      </main>
+    </>
+  );
+};
 
 export default App;
