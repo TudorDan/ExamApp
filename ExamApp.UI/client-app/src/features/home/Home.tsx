@@ -9,11 +9,8 @@ const Home = () => {
           <br />
           <span>Diverse</span> Tests
         </h1>
-        <p className="mb-4 pb-0">Brevity is the soul of wit.</p>
 
-        <a href="#about" className="about-btn scrollto">
-          About the site
-        </a>
+        <p className="mb-4 pb-0">Brevity is the soul of wit.</p>
       </div>
     </section>
   );

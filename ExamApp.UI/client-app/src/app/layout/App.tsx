@@ -21,9 +21,9 @@ const App = () => {
 
       <Home />
 
-      <About />
-
       <main id="main">
+        <About />
+
         <TestList tests={tests} />
       </main>
     </>
