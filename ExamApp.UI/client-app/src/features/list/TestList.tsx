@@ -19,13 +19,15 @@ const TestList: React.FC<IProps> = ({ tests }) => {
             <div key={test.id} className="col-lg-4 col-md-6">
               <div className="speaker" data-aos="fade-up" data-aos-delay="100">
                 <img
-                  src="assets/img/speakers/1.jpg"
+                  src="assets/img/speakers/7.jpg"
                   alt="Speaker 1"
                   className="img-fluid"
                 ></img>
                 <div className="details">
                   <h3>
-                    <a href="speaker-details.html">{test.title}</a>
+                    <a href="speaker-details.html">
+                      {test.title.substring(0, 30) + "..."}
+                    </a>
                   </h3>
                   <p>{test.description}</p>
                 </div>
