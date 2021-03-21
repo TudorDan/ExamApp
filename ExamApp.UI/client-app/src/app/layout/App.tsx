@@ -5,6 +5,7 @@ import NavBar from "../../features/nav/NavBar";
 import Home from "../../features/home/Home";
 import About from "../../features/about/About";
 import TestList from "../../features/list/TestList";
+import Footer from "../../features/footer/Footer";
 
 const App = () => {
   const [tests, setTests] = useState<ITest[]>([]);
@@ -26,6 +27,8 @@ const App = () => {
 
         <TestList tests={tests} />
       </main>
+
+      <Footer />
     </>
   );
 };
