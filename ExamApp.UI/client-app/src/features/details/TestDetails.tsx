@@ -3,15 +3,22 @@ import { ITest } from "../../app/models/test";
 
 interface IProps {
   test: ITest;
+  setEditMode: (editMode: boolean) => void;
+  setSelectedTest: (test: ITest | null) => void;
 }
 
-const TestDetails: React.FC<IProps> = ({ test }) => {
+const TestDetails: React.FC<IProps> = ({
+  test,
+  setEditMode,
+  setSelectedTest,
+}) => {
   return (
     <section id="speakers-details">
       <div className="container">
         <div className="section-header">
           <h2>Test Details</h2>
-          <p>Lorem ipsum dolor sit amet consectetur.</p>
+
+          <p>For registered users only.</p>
         </div>
 
         <div className="row" id="test">
@@ -40,9 +47,16 @@ const TestDetails: React.FC<IProps> = ({ test }) => {
                 {test.description}
               </p>
 
-              <div className="social d-flex justify-content-around mt-5">
-                <button className="btn-2">Edit</button>
-                <button className="btn-2">Cancel</button>
+              <div className="social d-flex mt-5 justify-content-around">
+                <button onClick={() => setEditMode(true)} className="btn-2">
+                  Edit
+                </button>
+
+                <button className="btn-2">Delete</button>
+
+                <button onClick={() => setSelectedTest(null)} className="btn-2">
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
