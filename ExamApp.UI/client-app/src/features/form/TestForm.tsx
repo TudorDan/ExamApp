@@ -20,7 +20,7 @@ const TestForm: React.FC<IProps> = ({
       return initialFormState;
     } else {
       return {
-        id: uuid(),
+        id: "",
         title: "",
         description: "",
       };
@@ -33,7 +33,7 @@ const TestForm: React.FC<IProps> = ({
     if (test.id.length === 0) {
       let newTest = {
         ...test,
-        id: "guid",
+        id: uuid(),
       };
       createTest(newTest);
     } else {
