@@ -28,11 +28,17 @@ const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
                 <div className="details">
                   <h3>
                     <button onClick={() => selectTest(test.id)}>
-                      {test.title.substring(0, 30) + "..."}
+                      {test.title.length > 30
+                        ? test.title.substring(0, 30) + "..."
+                        : test.title}
                     </button>
                   </h3>
 
-                  <p>{test.description}</p>
+                  <p>
+                    {test.description.length > 30
+                      ? test.description.substring(0, 30) + "..."
+                      : test.description}
+                  </p>
                 </div>
               </div>
             </div>
