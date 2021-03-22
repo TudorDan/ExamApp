@@ -7,13 +7,28 @@ import About from "../../features/about/About";
 import TestList from "../../features/list/TestList";
 import Footer from "../../features/footer/Footer";
 import TestDetails from "../../features/details/TestDetails";
+import TestForm from "../../features/form/TestForm";
 
 const App = () => {
   const [tests, setTests] = useState<ITest[]>([]);
   const [selectedTest, setSelectedTest] = useState<ITest | null>(null);
+  const [editMode, setEditMode] = useState(false);
 
   const handleSelectTest = (id: string) => {
     setSelectedTest(tests.filter((t) => t.id === id)[0]);
+  };
+
+  const handleOpenCreateForm = () => {
+    setSelectedTest(null);
+    setEditMode(true);
+  };
+
+  const handleCreateTest = (test: ITest) => {
+    setTests([...tests, test]);
+  };
+
+  const handleEditTest = (test: ITest) => {
+    setTests([...tests.filter((t) => t.id !== test.id), test]);
   };
 
   useEffect(() => {
@@ -24,7 +39,7 @@ const App = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar openCreateForm={handleOpenCreateForm} />
 
       <Home />
 
@@ -33,7 +48,22 @@ const App = () => {
 
         <TestList tests={tests} selectTest={handleSelectTest} />
 
-        {selectedTest && <TestDetails test={selectedTest} />}
+        {selectedTest && !editMode && (
+          <TestDetails
+            test={selectedTest}
+            setEditMode={setEditMode}
+            setSelectedTest={setSelectedTest}
+          />
+        )}
+
+        {editMode && (
+          <TestForm
+            setEditMode={setEditMode}
+            test={selectedTest!}
+            createTest={handleCreateTest}
+            editTest={handleEditTest}
+          />
+        )}
       </main>
 
       <Footer />

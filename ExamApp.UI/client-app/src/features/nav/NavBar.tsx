@@ -1,7 +1,11 @@
 ﻿import React, { useState, useEffect, useRef } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
-const NavBar = () => {
+interface IProps {
+  openCreateForm: () => void;
+}
+
+const NavBar: React.FC<IProps> = ({ openCreateForm }) => {
   const [isHome, SetIsHome] = useState(true);
   const [isAbout, SetIsAbout] = useState(false);
   const [isTests, SetIsTests] = useState(false);
@@ -60,7 +64,6 @@ const NavBar = () => {
   }, [isHome]);
 
   useScrollPosition(({ prevPos, currPos }) => {
-    console.log(currPos.y);
     if (currPos.y < -200) {
       SetIsHome(false);
     } else {
@@ -133,9 +136,9 @@ const NavBar = () => {
           </ul>
         </nav>
 
-        <a className="buy-tickets scrollto" href="#buy-tickets">
+        <button onClick={openCreateForm} className="buy-tickets scrollto">
           Create
-        </a>
+        </button>
       </div>
     </header>
   );
