@@ -1,9 +1,12 @@
 ﻿import React, { useState, useEffect, useRef } from "react";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
 const NavBar = () => {
   const [isHome, SetIsHome] = useState(true);
   const [isAbout, SetIsAbout] = useState(false);
   const [isTests, SetIsTests] = useState(false);
+  const [isRegister, SetIsRegister] = useState(false);
+  const [isLogin, SetIsLogin] = useState(false);
   const headerContainerRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = (element: string) => {
@@ -12,28 +15,58 @@ const NavBar = () => {
         SetIsHome(true);
         SetIsAbout(false);
         SetIsTests(false);
+        SetIsRegister(false);
+        SetIsLogin(false);
         break;
       case "about":
         SetIsHome(false);
         SetIsAbout(true);
         SetIsTests(false);
+        SetIsRegister(false);
+        SetIsLogin(false);
         break;
       case "tests":
         SetIsHome(false);
         SetIsAbout(false);
         SetIsTests(true);
+        SetIsRegister(false);
+        SetIsLogin(false);
+        break;
+      case "register":
+        SetIsHome(false);
+        SetIsAbout(false);
+        SetIsTests(false);
+        SetIsRegister(true);
+        SetIsLogin(false);
+        break;
+      case "login":
+        SetIsHome(false);
+        SetIsAbout(false);
+        SetIsTests(false);
+        SetIsRegister(false);
+        SetIsLogin(true);
         break;
     }
   };
 
   useEffect(() => {
-    if (headerContainerRef.current !== null)
+    if (headerContainerRef.current !== null) {
       if (!isHome) {
         headerContainerRef.current.style.height = "60px";
       } else {
         headerContainerRef.current.style.height = "70px";
       }
+    }
   }, [isHome]);
+
+  useScrollPosition(({ prevPos, currPos }) => {
+    console.log(currPos.y);
+    if (currPos.y < -200) {
+      SetIsHome(false);
+    } else {
+      SetIsHome(true);
+    }
+  });
 
   return (
     <header
@@ -60,16 +93,6 @@ const NavBar = () => {
           <ul>
             <li>
               <a
-                className={`nav-link scrollto ${isHome ? "active" : ""}`}
-                onClick={() => handleToggle("home")}
-                href="#hero"
-              >
-                Home
-              </a>
-            </li>
-
-            <li>
-              <a
                 className={`nav-link scrollto ${isAbout ? "active" : ""}`}
                 onClick={() => handleToggle("about")}
                 href="#about"
@@ -87,11 +110,31 @@ const NavBar = () => {
                 Tests
               </a>
             </li>
+
+            <li>
+              <a
+                className={`nav-link scrollto ${isRegister ? "active" : ""}`}
+                onClick={() => handleToggle("register")}
+                href="#speakers"
+              >
+                Register
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={`nav-link scrollto ${isLogin ? "active" : ""}`}
+                onClick={() => handleToggle("login")}
+                href="#speakers"
+              >
+                Login
+              </a>
+            </li>
           </ul>
         </nav>
 
         <a className="buy-tickets scrollto" href="#buy-tickets">
-          Register
+          Create
         </a>
       </div>
     </header>
