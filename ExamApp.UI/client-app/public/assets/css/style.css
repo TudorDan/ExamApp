@@ -20,7 +20,9 @@ a {
   transition: 0.5s;
 }
 
-a:hover, a:active, a:focus {
+a:hover,
+a:active,
+a:focus {
   color: #f8234a;
   outline: none;
   text-decoration: none;
@@ -31,7 +33,12 @@ p {
   margin: 0 0 30px 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 0 0 20px 0;
@@ -97,7 +104,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-header::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 60px;
@@ -141,7 +148,8 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 997;
 }
 
-#header.header-scrolled, #header.header-inner {
+#header.header-scrolled,
+#header.header-inner {
   background: rgba(6, 12, 34, 0.98);
   height: 70px;
 }
@@ -159,7 +167,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #f82249;
 }
 
-#header #logo h1 a, #header #logo h1 a:hover {
+#header #logo h1 a,
+#header #logo h1 a:hover {
   color: #fff;
 }
 
@@ -266,12 +275,16 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.navbar a:hover:before, .navbar li:hover > a:before, .navbar .active:before {
+.navbar a:hover:before,
+.navbar li:hover > a:before,
+.navbar .active:before {
   visibility: visible;
   width: 100%;
 }
 
-.navbar a:hover, .navbar .active, .navbar li:hover > a {
+.navbar a:hover,
+.navbar .active,
+.navbar li:hover > a {
   color: #fff;
 }
 
@@ -305,7 +318,9 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 12px;
 }
 
-.navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
+.navbar .dropdown ul a:hover,
+.navbar .dropdown ul .active:hover,
+.navbar .dropdown ul li:hover > a {
   color: #f82249;
 }
 
@@ -393,7 +408,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-.navbar-mobile a:hover:before, .navbar-mobile li:hover > a:before, .navbar-mobile .active:before {
+.navbar-mobile a:hover:before,
+.navbar-mobile li:hover > a:before,
+.navbar-mobile .active:before {
   visibility: hidden;
 }
 
@@ -403,7 +420,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #060c22;
 }
 
-.navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
+.navbar-mobile a:hover,
+.navbar-mobile .active,
+.navbar-mobile li:hover > a {
   color: #f82249;
 }
 
@@ -435,7 +454,9 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 12px;
 }
 
-.navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {
+.navbar-mobile .dropdown ul a:hover,
+.navbar-mobile .dropdown ul .active:hover,
+.navbar-mobile .dropdown ul li:hover > a {
   color: #f82249;
 }
 
@@ -532,7 +553,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .play-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -547,7 +568,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .play-btn:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 120px;
   height: 120px;
@@ -575,7 +596,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .play-btn:hover::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -855,7 +876,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #schedule .tab-pane {
-  transition: ease-in-out .2s;
+  transition: ease-in-out 0.2s;
 }
 
 #schedule .schedule-item {
@@ -1205,7 +1226,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#subscribe .section-header h2, #subscribe p {
+#subscribe .section-header h2,
+#subscribe p {
   color: #fff;
 }
 
@@ -1258,7 +1280,7 @@ h1, h2, h3, h4, h5, h6 {
 #buy-tickets .card {
   border: none;
   border-radius: 5px;
-  transition: all  0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 10px 25px 0 rgba(6, 12, 34, 0.1);
 }
 
@@ -1304,7 +1326,8 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #e0072f;
 }
 
-#buy-tickets #buy-ticket-modal input, #buy-tickets #buy-ticket-modal select {
+#buy-tickets #buy-ticket-modal input,
+#buy-tickets #buy-ticket-modal select {
   border-radius: 0;
 }
 
@@ -1341,7 +1364,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #f82249;
 }
 
-#contact .contact-info address, #contact .contact-info p {
+#contact .contact-info address,
+#contact .contact-info p {
   margin-bottom: 0;
   color: #112363;
 }
@@ -1362,12 +1386,16 @@ h1, h2, h3, h4, h5, h6 {
   color: #f82249;
 }
 
-#contact .contact-address, #contact .contact-phone, #contact .contact-email {
+#contact .contact-address,
+#contact .contact-phone,
+#contact .contact-email {
   margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
-  #contact .contact-address, #contact .contact-phone, #contact .contact-email {
+  #contact .contact-address,
+  #contact .contact-phone,
+  #contact .contact-email {
     padding: 20px 0;
   }
 }
@@ -1421,13 +1449,15 @@ h1, h2, h3, h4, h5, h6 {
   animation: animate-loading 1s linear infinite;
 }
 
-#contact .php-email-form input, #contact .php-email-form textarea {
+#contact .php-email-form input,
+#contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
 }
 
-#contact .php-email-form input:focus, #contact .php-email-form textarea:focus {
+#contact .php-email-form input:focus,
+#contact .php-email-form textarea:focus {
   border-color: #f82249;
 }
 
@@ -1623,4 +1653,83 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   font-size: 13px;
   color: #ddd;
+}
+
+/*--------------------------------------------------------------
+# Test Details Section
+--------------------------------------------------------------*/
+#test .test-info {
+  background: url("../img/venue-info-bg.jpg") top center no-repeat;
+  background-size: cover;
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+#test .test-info:before {
+  content: "";
+  background: rgba(13, 20, 41, 0.8);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#test .test-info h3 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+}
+
+@media (max-width: 574px) {
+  #test .test-info h3 {
+    font-size: 24px;
+  }
+}
+
+#test .test-info p {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+#test .about-btn {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: 0.5s;
+  line-height: 1;
+  margin: 10px 10px 10px -4px;
+  color: #fff;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  border: 2px solid #f82249;
+}
+
+#test .about-btn:hover {
+  background: #f82249;
+  color: #fff;
+}
+
+.details i {
+  color: #f82249;
+}
+
+.btn-2 {
+  font-size: 15px;
+  border-radius: 50px;
+  padding: 10px 40px;
+  transition: all 0.2s;
+  background: #112363;
+  border: 0;
+  color: #e9edfb;
+}
+
+.btn-2:hover {
+  background: #f82249;
+  color: #fff;
 }
