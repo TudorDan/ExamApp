@@ -6,9 +6,15 @@ import Home from "../../features/home/Home";
 import About from "../../features/about/About";
 import TestList from "../../features/list/TestList";
 import Footer from "../../features/footer/Footer";
+import TestDetails from "../../features/details/TestDetails";
 
 const App = () => {
   const [tests, setTests] = useState<ITest[]>([]);
+  const [selectedTest, setSelectedTest] = useState<ITest | null>(null);
+
+  const handleSelectTest = (id: string) => {
+    setSelectedTest(tests.filter((t) => t.id === id)[0]);
+  };
 
   useEffect(() => {
     axios.get<ITest[]>("http://localhost:34565/api/tests").then((response) => {
@@ -25,7 +31,9 @@ const App = () => {
       <main id="main">
         <About />
 
-        <TestList tests={tests} />
+        <TestList tests={tests} selectTest={handleSelectTest} />
+
+        {selectedTest && <TestDetails test={selectedTest} />}
       </main>
 
       <Footer />

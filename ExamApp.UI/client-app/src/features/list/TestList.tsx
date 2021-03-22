@@ -3,9 +3,10 @@ import { ITest } from "../../app/models/test";
 
 interface IProps {
   tests: ITest[];
+  selectTest: (id: string) => void;
 }
 
-const TestList: React.FC<IProps> = ({ tests }) => {
+const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
   return (
     <section id="speakers">
       <div className="container" data-aos="fade-up">
@@ -23,12 +24,14 @@ const TestList: React.FC<IProps> = ({ tests }) => {
                   alt="Speaker 1"
                   className="img-fluid"
                 ></img>
+
                 <div className="details">
                   <h3>
-                    <a href="speaker-details.html">
+                    <button onClick={() => selectTest(test.id)}>
                       {test.title.substring(0, 30) + "..."}
-                    </a>
+                    </button>
                   </h3>
+
                   <p>{test.description}</p>
                 </div>
               </div>
