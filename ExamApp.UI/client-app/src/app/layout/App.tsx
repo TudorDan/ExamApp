@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ITest } from "../models/test";
 import NavBar from "../../features/nav/NavBar";
 import Home from "../../features/home/Home";
@@ -8,6 +7,7 @@ import TestList from "../../features/list/TestList";
 import Footer from "../../features/footer/Footer";
 import TestDetails from "../../features/details/TestDetails";
 import TestForm from "../../features/form/TestForm";
+import agent from "../api/agent";
 
 const App = () => {
   const [tests, setTests] = useState<ITest[]>([]);
@@ -25,11 +25,17 @@ const App = () => {
   };
 
   const handleCreateTest = (test: ITest) => {
-    setTests([...tests, test]);
+    agent.Tests.create(test).then(() => {
+      setTests([...tests, test]);
+      setSelectedTest(test);
+      setEditMode(false);
+    });
   };
 
   const handleEditTest = (test: ITest) => {
     setTests([...tests.filter((t) => t.id !== test.id), test]);
+    setSelectedTest(test);
+    setEditMode(false);
   };
 
   const handleDeleteTest = (id: string) => {
@@ -37,8 +43,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    axios.get<ITest[]>("http://localhost:34565/api/tests").then((response) => {
-      setTests(response.data);
+    agent.Tests.list().then((response) => {
+      setTests(response);
     });
   }, []);
 
