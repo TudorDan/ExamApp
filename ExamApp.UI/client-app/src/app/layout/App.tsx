@@ -41,7 +41,9 @@ const App = () => {
   };
 
   const handleDeleteTest = (id: string) => {
-    setTests([...tests.filter((t) => t.id !== id)]);
+    agent.Tests.delete(id).then(() => {
+      setTests([...tests.filter((t) => t.id !== id)]);
+    });
   };
 
   useEffect(() => {
