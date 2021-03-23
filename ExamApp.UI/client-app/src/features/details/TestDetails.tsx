@@ -5,12 +5,14 @@ interface IProps {
   test: ITest;
   setEditMode: (editMode: boolean) => void;
   setSelectedTest: (test: ITest | null) => void;
+  deleteTest: (id: string) => void;
 }
 
 const TestDetails: React.FC<IProps> = ({
   test,
   setEditMode,
   setSelectedTest,
+  deleteTest,
 }) => {
   return (
     <section id="speakers-details">
@@ -52,7 +54,9 @@ const TestDetails: React.FC<IProps> = ({
                   Edit
                 </button>
 
-                <button className="btn-2">Delete</button>
+                <button onClick={() => deleteTest(test.id)} className="btn-2">
+                  Delete
+                </button>
 
                 <button onClick={() => setSelectedTest(null)} className="btn-2">
                   Cancel

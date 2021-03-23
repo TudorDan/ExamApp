@@ -16,6 +16,7 @@ const App = () => {
 
   const handleSelectTest = (id: string) => {
     setSelectedTest(tests.filter((t) => t.id === id)[0]);
+    setEditMode(false);
   };
 
   const handleOpenCreateForm = () => {
@@ -29,6 +30,10 @@ const App = () => {
 
   const handleEditTest = (test: ITest) => {
     setTests([...tests.filter((t) => t.id !== test.id), test]);
+  };
+
+  const handleDeleteTest = (id: string) => {
+    setTests([...tests.filter((t) => t.id !== id)]);
   };
 
   useEffect(() => {
@@ -53,11 +58,13 @@ const App = () => {
             test={selectedTest}
             setEditMode={setEditMode}
             setSelectedTest={setSelectedTest}
+            deleteTest={handleDeleteTest}
           />
         )}
 
         {editMode && (
           <TestForm
+            key={selectedTest && (selectedTest.id || 0)}
             setEditMode={setEditMode}
             test={selectedTest!}
             createTest={handleCreateTest}
