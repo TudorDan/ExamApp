@@ -33,9 +33,11 @@ const App = () => {
   };
 
   const handleEditTest = (test: ITest) => {
-    setTests([...tests.filter((t) => t.id !== test.id), test]);
-    setSelectedTest(test);
-    setEditMode(false);
+    agent.Tests.update(test).then(() => {
+      setTests([...tests.filter((t) => t.id !== test.id), test]);
+      setSelectedTest(test);
+      setEditMode(false);
+    });
   };
 
   const handleDeleteTest = (id: string) => {
