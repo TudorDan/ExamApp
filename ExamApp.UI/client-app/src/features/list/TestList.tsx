@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { ITest } from "../../app/models/test";
 
@@ -7,6 +8,8 @@ interface IProps {
 }
 
 const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
+  console.log(tests);
+
   return (
     <section id="speakers">
       <div className="container" data-aos="fade-up">
@@ -49,4 +52,4 @@ const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
   );
 };
 
-export default TestList;
+export default observer(TestList);

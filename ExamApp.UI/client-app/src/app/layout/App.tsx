@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ITest } from "../models/test";
 import NavBar from "../../features/nav/NavBar";
 import Home from "../../features/home/Home";
@@ -9,8 +9,11 @@ import TestDetails from "../../features/details/TestDetails";
 import TestForm from "../../features/form/TestForm";
 import agent from "../api/agent";
 import Loading from "./Loading";
+import TestStore from "../stores/testStore";
+import { observer } from "mobx-react-lite";
 
 const App = () => {
+  const testStore = useContext(TestStore);
   const [tests, setTests] = useState<ITest[]>([]);
   const [selectedTest, setSelectedTest] = useState<ITest | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -59,14 +62,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    agent.Tests.list()
-      .then((response) => {
-        setTests(response);
-      })
-      .then(() => setLoading(false));
-  }, []);
+    testStore.loadTests();
+  }, [testStore]);
 
-  if (loading) return <Loading content="Loading Exams..." />;
+  if (testStore.loadingInitial) return <Loading content="Loading Exams..." />;
 
   if (submitting) return <Loading content="Loading..." />;
 
@@ -79,7 +78,7 @@ const App = () => {
       <main id="main">
         <About />
 
-        <TestList tests={tests} selectTest={handleSelectTest} />
+        <TestList tests={testStore.tests} selectTest={handleSelectTest} />
 
         {selectedTest && !editMode && (
           <TestDetails
@@ -106,4 +105,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);
