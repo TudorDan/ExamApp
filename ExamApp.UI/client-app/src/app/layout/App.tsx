@@ -8,11 +8,14 @@ import Footer from "../../features/footer/Footer";
 import TestDetails from "../../features/details/TestDetails";
 import TestForm from "../../features/form/TestForm";
 import agent from "../api/agent";
+import Loading from "./Loading";
 
 const App = () => {
   const [tests, setTests] = useState<ITest[]>([]);
   const [selectedTest, setSelectedTest] = useState<ITest | null>(null);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSelectTest = (id: string) => {
     setSelectedTest(tests.filter((t) => t.id === id)[0]);
@@ -25,32 +28,47 @@ const App = () => {
   };
 
   const handleCreateTest = (test: ITest) => {
-    agent.Tests.create(test).then(() => {
-      setTests([...tests, test]);
-      setSelectedTest(test);
-      setEditMode(false);
-    });
+    setSubmitting(true);
+    agent.Tests.create(test)
+      .then(() => {
+        setTests([...tests, test]);
+        setSelectedTest(test);
+        setEditMode(false);
+      })
+      .then(() => setSubmitting(false));
   };
 
   const handleEditTest = (test: ITest) => {
-    agent.Tests.update(test).then(() => {
-      setTests([...tests.filter((t) => t.id !== test.id), test]);
-      setSelectedTest(test);
-      setEditMode(false);
-    });
+    setSubmitting(true);
+    agent.Tests.update(test)
+      .then(() => {
+        setTests([...tests.filter((t) => t.id !== test.id), test]);
+        setSelectedTest(test);
+        setEditMode(false);
+      })
+      .then(() => setSubmitting(false));
   };
 
   const handleDeleteTest = (id: string) => {
-    agent.Tests.delete(id).then(() => {
-      setTests([...tests.filter((t) => t.id !== id)]);
-    });
+    setSubmitting(true);
+    agent.Tests.delete(id)
+      .then(() => {
+        setTests([...tests.filter((t) => t.id !== id)]);
+      })
+      .then(() => setSubmitting(false));
   };
 
   useEffect(() => {
-    agent.Tests.list().then((response) => {
-      setTests(response);
-    });
+    agent.Tests.list()
+      .then((response) => {
+        setTests(response);
+      })
+      .then(() => setLoading(false));
   }, []);
+
+  if (loading) return <Loading content="Loading Exams..." />;
+
+  if (submitting) return <Loading content="Loading..." />;
 
   return (
     <>
