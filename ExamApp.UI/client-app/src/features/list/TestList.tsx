@@ -8,8 +8,6 @@ interface IProps {
 }
 
 const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
-  console.log(tests);
-
   return (
     <section id="speakers">
       <div className="container" data-aos="fade-up">
