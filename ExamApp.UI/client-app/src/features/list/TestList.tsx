@@ -1,13 +1,11 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
-import { ITest } from "../../app/models/test";
+import React, { useContext } from "react";
+import TestStore from "../../app/stores/testStore";
 
-interface IProps {
-  tests: ITest[];
-  selectTest: (id: string) => void;
-}
+const TestList: React.FC = () => {
+  const testStore = useContext(TestStore);
+  const { testsUnsorted, selectTest } = testStore;
 
-const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
   return (
     <section id="speakers">
       <div className="container" data-aos="fade-up">
@@ -17,7 +15,7 @@ const TestList: React.FC<IProps> = ({ tests, selectTest }) => {
         </div>
 
         <div className="row">
-          {tests.map((test) => (
+          {testsUnsorted.map((test) => (
             <div key={test.id} className="col-lg-4 col-md-6">
               <div className="speaker" data-aos="fade-up" data-aos-delay="100">
                 <img
