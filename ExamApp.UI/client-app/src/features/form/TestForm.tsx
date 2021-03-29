@@ -1,20 +1,18 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { ITest } from "../../app/models/test";
 import { v4 as uuid } from "uuid";
+import TestStore from "../../app/stores/testStore";
+import Loading from "../../app/layout/Loading";
+import { observer } from "mobx-react-lite";
 
 interface IProps {
-  setEditMode: (editMode: boolean) => void;
   test: ITest;
-  createTest: (test: ITest) => void;
-  editTest: (test: ITest) => void;
 }
 
-const TestForm: React.FC<IProps> = ({
-  setEditMode,
-  test: initialFormState,
-  createTest,
-  editTest,
-}) => {
+const TestForm: React.FC<IProps> = ({ test: initialFormState }) => {
+  const testStore = useContext(TestStore);
+  const { createTest, editTest, submitting, cancelFormOpen } = testStore;
+
   const initializeForm = () => {
     if (initialFormState) {
       return initialFormState;
@@ -47,6 +45,8 @@ const TestForm: React.FC<IProps> = ({
     const { name, value } = event.currentTarget;
     setTest({ ...test, [name]: value });
   };
+
+  if (submitting) return <Loading content="Loading form..." />;
 
   return (
     <section id="contact" className="section-bg">
@@ -95,11 +95,7 @@ const TestForm: React.FC<IProps> = ({
             <div className="text-center">
               <button type="submit">Submit</button>
 
-              <button
-                onClick={() => setEditMode(false)}
-                type="button"
-                className="btn-2"
-              >
+              <button onClick={cancelFormOpen} type="button" className="btn-2">
                 Cancel
               </button>
             </div>
@@ -110,4 +106,4 @@ const TestForm: React.FC<IProps> = ({
   );
 };
 
-export default TestForm;
+export default observer(TestForm);
