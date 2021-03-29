@@ -1,19 +1,20 @@
-import React from "react";
-import { ITest } from "../../app/models/test";
+import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
+import Loading from "../../app/layout/Loading";
+import TestStore from "../../app/stores/testStore";
 
-interface IProps {
-  test: ITest;
-  setEditMode: (editMode: boolean) => void;
-  setSelectedTest: (test: ITest | null) => void;
-  deleteTest: (id: string) => void;
-}
+const TestDetails: React.FC = () => {
+  const testStore = useContext(TestStore);
+  const {
+    selectedTest: test,
+    openEditForm,
+    cancelSelectedTest,
+    deleteTest,
+    submitting,
+  } = testStore;
 
-const TestDetails: React.FC<IProps> = ({
-  test,
-  setEditMode,
-  setSelectedTest,
-  deleteTest,
-}) => {
+  if (submitting) return <Loading content="Deleting test..." />;
+
   return (
     <section id="speakers-details">
       <div className="container">
@@ -38,7 +39,7 @@ const TestDetails: React.FC<IProps> = ({
 
           <div className="col-md-6">
             <div className="details">
-              <h2>{test.title}</h2>
+              <h2>{test!.title}</h2>
 
               <p>
                 <i className="bi bi-signpost"></i>&nbsp;&nbsp;Author..
@@ -46,19 +47,22 @@ const TestDetails: React.FC<IProps> = ({
 
               <p>
                 <i className="bi bi-signpost"></i>&nbsp;&nbsp;
-                {test.description}
+                {test!.description}
               </p>
 
               <div className="social d-flex mt-5 justify-content-around">
-                <button onClick={() => setEditMode(true)} className="btn-2">
+                <button
+                  onClick={() => openEditForm(test!.id)}
+                  className="btn-2"
+                >
                   Edit
                 </button>
 
-                <button onClick={() => deleteTest(test.id)} className="btn-2">
+                <button onClick={() => deleteTest(test!.id)} className="btn-2">
                   Delete
                 </button>
 
-                <button onClick={() => setSelectedTest(null)} className="btn-2">
+                <button onClick={cancelSelectedTest} className="btn-2">
                   Cancel
                 </button>
               </div>
@@ -70,4 +74,4 @@ const TestDetails: React.FC<IProps> = ({
   );
 };
 
-export default TestDetails;
+export default observer(TestDetails);
