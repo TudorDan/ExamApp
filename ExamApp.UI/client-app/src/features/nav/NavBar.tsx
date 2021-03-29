@@ -1,11 +1,11 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef, useContext } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import TestStore from "../../app/stores/testStore";
+import { observer } from "mobx-react-lite";
 
-interface IProps {
-  openCreateForm: () => void;
-}
+const NavBar: React.FC = () => {
+  const testStore = useContext(TestStore);
 
-const NavBar: React.FC<IProps> = ({ openCreateForm }) => {
   const [isHome, SetIsHome] = useState(true);
   const [isAbout, SetIsAbout] = useState(false);
   const [isTests, SetIsTests] = useState(false);
@@ -136,7 +136,10 @@ const NavBar: React.FC<IProps> = ({ openCreateForm }) => {
           </ul>
         </nav>
 
-        <button onClick={openCreateForm} className="buy-tickets scrollto">
+        <button
+          onClick={testStore.openCreateForm}
+          className="buy-tickets scrollto"
+        >
           Create
         </button>
       </div>
@@ -144,4 +147,4 @@ const NavBar: React.FC<IProps> = ({ openCreateForm }) => {
   );
 };
 
-export default NavBar;
+export default observer(NavBar);
