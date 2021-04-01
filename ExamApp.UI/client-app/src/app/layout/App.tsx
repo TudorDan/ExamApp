@@ -1,7 +1,6 @@
 import { useEffect, useContext } from "react";
 import NavBar from "../../features/nav/NavBar";
 import Home from "../../features/home/Home";
-import About from "../../features/about/About";
 import TestList from "../../features/list/TestList";
 import Footer from "../../features/footer/Footer";
 import TestDetails from "../../features/details/TestDetails";
@@ -9,10 +8,10 @@ import TestForm from "../../features/form/TestForm";
 import Loading from "./Loading";
 import TestStore from "../stores/testStore";
 import { observer } from "mobx-react-lite";
+import { Route, RouteComponentProps, withRouter } from "react-router-dom";
 
-const App = () => {
+const App: React.FC<RouteComponentProps> = ({ location }) => {
   const testStore = useContext(TestStore);
-  const { editMode, selectedTest } = testStore;
 
   useEffect(() => {
     testStore.loadTests();
@@ -24,21 +23,19 @@ const App = () => {
     <>
       <NavBar />
 
-      <Home />
+      <Route exact path="/" component={Home} />
 
       <main id="main">
-        <About />
+        <Route exact path="/tests" component={TestList} />
 
-        <TestList />
+        <Route exact path="/tests/:id" component={TestDetails} />
 
-        {selectedTest && !editMode && <TestDetails />}
-
-        {editMode && (
-          <TestForm
-            key={selectedTest && (selectedTest.id || 0)}
-            test={selectedTest!}
-          />
-        )}
+        <Route
+          key={location.key}
+          exact
+          path={["/createTest", "/manage/:id"]}
+          component={TestForm}
+        />
       </main>
 
       <Footer />
@@ -46,4 +43,4 @@ const App = () => {
   );
 };
 
-export default observer(App);
+export default withRouter(observer(App));
