@@ -7,9 +7,8 @@ configure({enforceActions: 'always'});
 
 class TestStore {
   @observable testRegistry = new Map();
-  @observable selectedTest: ITest | undefined;
+  @observable test: ITest | null = null;
   @observable loadingInitial = false;
-  @observable editMode = false;
   @observable submitting = false;
 
   @computed get testsUnsorted() {
@@ -17,8 +16,7 @@ class TestStore {
   }
 
   @action loadTests = async () => {
-    this.loadingInitial = true;
-
+    this.loadingInitial = true;    
     try {
       const tests = await agent.Tests.list();
 
@@ -26,61 +24,91 @@ class TestStore {
         tests.forEach(test => {
           this.testRegistry.set(test.id, test);
         });
-  
+
         this.loadingInitial = false;
       });
     } catch (error) {
       runInAction(() => {
         this.loadingInitial = false;
       });
+
       console.log(error);
     }
   }
 
+  @action loadTest = async (id: string) => {
+    let test = this.getTest(id);
+
+    if (test) {
+      this.test = test;
+    } else {
+      this.loadingInitial = true;
+      try {
+        test = await agent.Tests.details(id);
+
+        runInAction(() => {
+          this.test = test;
+          this.loadingInitial = false;
+        });
+      } catch (error) {
+        runInAction(() => {
+          this.loadingInitial = false;
+        });
+
+        console.log(error);
+      }
+    }
+  }
+
+  @action clearTest = () => {
+    this.test = null;
+  }
+
+  getTest = (id: string) => {
+    return this.testRegistry.get(id);
+  }
+
   @action createTest = async (test: ITest) => {
     this.submitting = true;
-
     try {
       await agent.Tests.create(test);
 
       runInAction(() => {
         this.testRegistry.set(test.id, test);
-  
-        this.editMode = false;
+
         this.submitting = false;
       });
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
       });
+
       console.log(error);
     }
   }
 
   @action editTest = async (test: ITest) => {
     this.submitting = true;
-
     try {
       await agent.Tests.update(test);
 
       runInAction(() => {
         this.testRegistry.set(test.id, test);
   
-        this.selectedTest = test;
-        this.editMode = false;
+        this.test = test;
         this.submitting = false;
       });
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
       });
+
       console.log(error);
     }
   }
 
   @action deleteTest = async (id: string) => {
     this.submitting = true;
-
     try {
       await agent.Tests.delete(id);
 
@@ -93,31 +121,9 @@ class TestStore {
       runInAction(() => {
         this.submitting = false;
       });
+
       console.log(error);
     }
-  }
-
-  @action openCreateForm = () => {
-    this.editMode = true;
-    this.selectedTest = undefined;
-  }
-
-  @action openEditForm = (id: string) => {
-    this.selectedTest = this.testRegistry.get(id);
-    this.editMode = true;
-  }
-
-  @action cancelSelectedTest = () => {
-    this.selectedTest = undefined;
-  }
-
-  @action cancelFormOpen = () => {
-    this.editMode = false;
-  }
-
-  @action selectTest = (id: string) => {
-    this.selectedTest = this.testRegistry.get(id);
-    this.editMode = false;
   }
 
   constructor() {
