@@ -1,13 +1,10 @@
-﻿import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import TestStore from "../../app/stores/testStore";
 import { observer } from "mobx-react-lite";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar: React.FC = () => {
-  const testStore = useContext(TestStore);
-
-  const [isHome, SetIsHome] = useState(true);
-  const [isAbout, SetIsAbout] = useState(false);
+  const [isHome, SetIsHome] = useState(false);
   const [isTests, SetIsTests] = useState(false);
   const [isRegister, SetIsRegister] = useState(false);
   const [isLogin, SetIsLogin] = useState(false);
@@ -17,35 +14,24 @@ const NavBar: React.FC = () => {
     switch (element) {
       case "home":
         SetIsHome(true);
-        SetIsAbout(false);
-        SetIsTests(false);
-        SetIsRegister(false);
-        SetIsLogin(false);
-        break;
-      case "about":
-        SetIsHome(false);
-        SetIsAbout(true);
         SetIsTests(false);
         SetIsRegister(false);
         SetIsLogin(false);
         break;
       case "tests":
         SetIsHome(false);
-        SetIsAbout(false);
         SetIsTests(true);
         SetIsRegister(false);
         SetIsLogin(false);
         break;
       case "register":
         SetIsHome(false);
-        SetIsAbout(false);
         SetIsTests(false);
         SetIsRegister(true);
         SetIsLogin(false);
         break;
       case "login":
         SetIsHome(false);
-        SetIsAbout(false);
         SetIsTests(false);
         SetIsRegister(false);
         SetIsLogin(true);
@@ -64,10 +50,14 @@ const NavBar: React.FC = () => {
   }, [isHome]);
 
   useScrollPosition(({ prevPos, currPos }) => {
-    if (currPos.y < -200) {
-      SetIsHome(false);
-    } else {
+    if (window.location.href.split("/")[3].split("#")[0] === "") {
       SetIsHome(true);
+
+      if (currPos.y < -100) {
+        SetIsHome(false);
+      } else {
+        SetIsHome(true);
+      }
     }
   });
 
@@ -79,8 +69,8 @@ const NavBar: React.FC = () => {
     >
       <div className="container-fluid container-xxl d-flex align-items-center">
         <div id="logo" className="me-auto">
-          <a
-            href="index.html"
+          <NavLink
+            to="/"
             className="scrollto"
             onClick={() => handleToggle("home")}
           >
@@ -89,59 +79,46 @@ const NavBar: React.FC = () => {
               alt="logo"
               title="personalisedLogo"
             />
-          </a>
+          </NavLink>
         </div>
 
         <nav id="navbar" className="navbar order-last order-lg-0">
           <ul>
             <li>
-              <a
-                className={`nav-link scrollto ${isAbout ? "active" : ""}`}
-                onClick={() => handleToggle("about")}
-                href="#about"
-              >
-                About
-              </a>
-            </li>
-
-            <li>
-              <a
+              <NavLink
+                to="/tests"
                 className={`nav-link scrollto ${isTests ? "active" : ""}`}
                 onClick={() => handleToggle("tests")}
-                href="#speakers"
               >
                 Tests
-              </a>
+              </NavLink>
             </li>
 
             <li>
-              <a
+              <NavLink
+                to="/register"
                 className={`nav-link scrollto ${isRegister ? "active" : ""}`}
                 onClick={() => handleToggle("register")}
-                href="#speakers"
               >
                 Register
-              </a>
+              </NavLink>
             </li>
 
             <li>
-              <a
+              <NavLink
+                to="/login"
                 className={`nav-link scrollto ${isLogin ? "active" : ""}`}
                 onClick={() => handleToggle("login")}
-                href="#speakers"
               >
                 Login
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
 
-        <button
-          onClick={testStore.openCreateForm}
-          className="buy-tickets scrollto"
-        >
-          Create
-        </button>
+        <Link to="/createTest">
+          <button className="buy-tickets scrollto">Create</button>
+        </Link>
       </div>
     </header>
   );
