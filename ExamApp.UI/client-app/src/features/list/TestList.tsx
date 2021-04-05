@@ -1,13 +1,14 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import TestStore from "../../app/stores/testStore";
 
 const TestList: React.FC = () => {
   const testStore = useContext(TestStore);
-  const { testsUnsorted, selectTest } = testStore;
+  const { testsUnsorted } = testStore;
 
   return (
-    <section id="speakers">
+    <section id="speakers" className="mt-5">
       <div className="container" data-aos="fade-up">
         <div className="section-header">
           <h2>Test Titles</h2>
@@ -26,11 +27,13 @@ const TestList: React.FC = () => {
 
                 <div className="details">
                   <h3>
-                    <button onClick={() => selectTest(test.id)}>
-                      {test.title.length > 30
-                        ? test.title.substring(0, 30) + "..."
-                        : test.title}
-                    </button>
+                    <Link to={`/tests/${test.id}`}>
+                      <button>
+                        {test.title.length > 30
+                          ? test.title.substring(0, 30) + "..."
+                          : test.title}
+                      </button>
+                    </Link>
                   </h3>
 
                   <p>
