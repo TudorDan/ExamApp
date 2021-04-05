@@ -1,22 +1,31 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
 import Loading from "../../app/layout/Loading";
 import TestStore from "../../app/stores/testStore";
 
-const TestDetails: React.FC = () => {
+interface DetailParams {
+  id: string;
+}
+
+const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
+  match,
+  history,
+}) => {
   const testStore = useContext(TestStore);
-  const {
-    selectedTest: test,
-    openEditForm,
-    cancelSelectedTest,
-    deleteTest,
-    submitting,
-  } = testStore;
+  const { test, deleteTest, submitting, loadTest, loadingInitial } = testStore;
+
+  useEffect(() => {
+    loadTest(match.params.id);
+  }, [loadTest, match.params.id]);
+
+  if (loadingInitial || !test) return <Loading content="Loading test..." />;
 
   if (submitting) return <Loading content="Deleting test..." />;
 
   return (
-    <section id="speakers-details">
+    <section id="speakers-details" className="mt-5">
       <div className="container">
         <div className="section-header">
           <h2>Test Details</h2>
@@ -51,18 +60,18 @@ const TestDetails: React.FC = () => {
               </p>
 
               <div className="social d-flex mt-5 justify-content-around">
-                <button
-                  onClick={() => openEditForm(test!.id)}
-                  className="btn-2"
-                >
-                  Edit
-                </button>
+                <Link to={`/manage/${test.id}`}>
+                  <button className="btn-2">Edit</button>
+                </Link>
 
                 <button onClick={() => deleteTest(test!.id)} className="btn-2">
                   Delete
                 </button>
 
-                <button onClick={cancelSelectedTest} className="btn-2">
+                <button
+                  onClick={() => history.push("/tests")}
+                  className="btn-2"
+                >
                   Cancel
                 </button>
               </div>
