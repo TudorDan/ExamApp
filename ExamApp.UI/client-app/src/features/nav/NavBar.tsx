@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { Link, NavLink } from "react-router-dom";
 
 const NavBar: React.FC = () => {
-  const [isHome, SetIsHome] = useState(false);
+  const [isHome, SetIsHome] = useState(true);
   const [isTests, SetIsTests] = useState(false);
   const [isRegister, SetIsRegister] = useState(false);
   const [isLogin, SetIsLogin] = useState(false);
@@ -36,6 +36,11 @@ const NavBar: React.FC = () => {
         SetIsRegister(false);
         SetIsLogin(true);
         break;
+      default:
+        SetIsHome(false);
+        SetIsTests(false);
+        SetIsRegister(false);
+        SetIsLogin(false);
     }
   };
 
@@ -117,7 +122,12 @@ const NavBar: React.FC = () => {
         </nav>
 
         <Link to="/createTest">
-          <button className="buy-tickets scrollto">Create</button>
+          <button
+            className="buy-tickets scrollto"
+            onClick={() => handleToggle("")}
+          >
+            Create
+          </button>
         </Link>
       </div>
     </header>
