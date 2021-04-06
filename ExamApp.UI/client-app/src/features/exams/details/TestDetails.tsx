@@ -37,7 +37,7 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           <div className="col-md-6 test-info">
             <div className="row justify-content-center">
               <div className="col-11 col-lg-8 position-relative">
-                <h3>Category...</h3>
+                <h3>{test!.category}</h3>
 
                 <a href="/" className="about-btn scrollto">
                   Take the test

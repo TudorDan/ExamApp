@@ -20,7 +20,7 @@ const TestList: React.FC = () => {
             <div key={test.id} className="col-lg-4 col-md-6">
               <div className="speaker" data-aos="fade-up" data-aos-delay="100">
                 <img
-                  src="assets/img/speakers/7.jpg"
+                  src={`assets/img/speakers/${test.category}.jpg`}
                   alt="Speaker 1"
                   className="img-fluid"
                 ></img>
@@ -28,11 +28,9 @@ const TestList: React.FC = () => {
                 <div className="details">
                   <h3>
                     <Link to={`/tests/${test.id}`}>
-                      <button>
-                        {test.title.length > 30
-                          ? test.title.substring(0, 30) + "..."
-                          : test.title}
-                      </button>
+                      {test.title.length > 30
+                        ? test.title.substring(0, 30) + "..."
+                        : test.title}
                     </Link>
                   </h3>
 
