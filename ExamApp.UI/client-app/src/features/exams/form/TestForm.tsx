@@ -1,8 +1,8 @@
 import React, { FormEvent, useContext, useEffect, useState } from "react";
-import { ITest } from "../../app/models/test";
+import { ITest } from "../../../app/models/test";
 import { v4 as uuid } from "uuid";
-import TestStore from "../../app/stores/testStore";
-import Loading from "../../app/layout/Loading";
+import TestStore from "../../../app/stores/testStore";
+import Loading from "../../../app/layout/Loading";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
 
@@ -28,6 +28,7 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
     id: "",
     title: "",
     description: "",
+    category: "",
   });
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
         <div className="section-header">
           {match.params.id ? <h2>Edit Test</h2> : <h2>Create Test</h2>}
 
-          <p>For registered examiners only.</p>
+          <p>For registered examiners only</p>
         </div>
 
         <div className="form">
@@ -94,6 +95,18 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 rows={5}
                 placeholder="Description"
                 value={test.description}
+                required
+              />
+            </div>
+
+            <div className="form-group mt-3">
+              <input
+                onChange={handleInputChange}
+                type="text"
+                className="form-control"
+                name="category"
+                placeholder="Category"
+                value={test.category}
                 required
               />
             </div>

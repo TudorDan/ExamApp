@@ -4,7 +4,7 @@ import Home from "../../features/home/Home";
 import TestList from "../../features/exams/list/TestList";
 import Footer from "../../features/footer/Footer";
 import TestDetails from "../../features/exams/details/TestDetails";
-import TestForm from "../../features/form/TestForm";
+import TestForm from "../../features/exams/form/TestForm";
 import Loading from "./Loading";
 import TestStore from "../stores/testStore";
 import { observer } from "mobx-react-lite";
