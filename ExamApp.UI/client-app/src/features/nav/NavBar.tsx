@@ -3,8 +3,10 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { observer } from "mobx-react-lite";
 import { Link, NavLink } from "react-router-dom";
 
+const firstRender = window.location.href.split("/")[3] === "" ? true : false;
+
 const NavBar: React.FC = () => {
-  const [isHome, SetIsHome] = useState(true);
+  const [isHome, SetIsHome] = useState(firstRender);
   const [isTests, SetIsTests] = useState(false);
   const [isRegister, SetIsRegister] = useState(false);
   const [isLogin, SetIsLogin] = useState(false);
