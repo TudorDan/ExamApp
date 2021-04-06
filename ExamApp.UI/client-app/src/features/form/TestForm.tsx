@@ -1,31 +1,45 @@
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { ITest } from "../../app/models/test";
 import { v4 as uuid } from "uuid";
 import TestStore from "../../app/stores/testStore";
 import Loading from "../../app/layout/Loading";
 import { observer } from "mobx-react-lite";
+import { RouteComponentProps } from "react-router";
 
-interface IProps {
-  test: ITest;
+interface DetailParams {
+  id: string;
 }
 
-const TestForm: React.FC<IProps> = ({ test: initialFormState }) => {
+const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
+  match,
+  history,
+}) => {
   const testStore = useContext(TestStore);
-  const { createTest, editTest, submitting, cancelFormOpen } = testStore;
+  const {
+    createTest,
+    editTest,
+    submitting,
+    test: initialFormState,
+    loadTest,
+    clearTest,
+  } = testStore;
 
-  const initializeForm = () => {
-    if (initialFormState) {
-      return initialFormState;
-    } else {
-      return {
-        id: "",
-        title: "",
-        description: "",
-      };
+  const [test, setTest] = useState<ITest>({
+    id: "",
+    title: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    if (match.params.id && test.id.length === 0) {
+      loadTest(match.params.id).then(
+        () => initialFormState && setTest(initialFormState)
+      );
     }
-  };
-
-  const [test, setTest] = useState<ITest>(initializeForm);
+    return () => {
+      clearTest();
+    };
+  }, [test.id.length, loadTest, match.params.id, initialFormState, clearTest]);
 
   const handleSubmit = (event: any) => {
     if (test.id.length === 0) {
@@ -33,9 +47,9 @@ const TestForm: React.FC<IProps> = ({ test: initialFormState }) => {
         ...test,
         id: uuid(),
       };
-      createTest(newTest);
+      createTest(newTest).then(() => history.push(`/tests/${newTest.id}`));
     } else {
-      editTest(test);
+      editTest(test).then(() => history.push(`/tests/${test.id}`));
     }
   };
 
@@ -49,10 +63,10 @@ const TestForm: React.FC<IProps> = ({ test: initialFormState }) => {
   if (submitting) return <Loading content="Loading form..." />;
 
   return (
-    <section id="contact" className="section-bg">
+    <section id="contact" className="section-bg mt-5">
       <div className="container" data-aos="fade-up">
         <div className="section-header">
-          <h2>Create Test</h2>
+          {match.params.id ? <h2>Edit Test</h2> : <h2>Create Test</h2>}
 
           <p>For registered examiners only.</p>
         </div>
@@ -95,7 +109,11 @@ const TestForm: React.FC<IProps> = ({ test: initialFormState }) => {
             <div className="text-center">
               <button type="submit">Submit</button>
 
-              <button onClick={cancelFormOpen} type="button" className="btn-2">
+              <button
+                onClick={() => history.push("/tests")}
+                type="button"
+                className="btn-2"
+              >
                 Cancel
               </button>
             </div>
