@@ -17,57 +17,68 @@ namespace ExamApp.Data
                     new Test
                     {
                         Title = "Erholungsmöglichkeiten, Ausbildungen für die Auswanderung",
-                        Description = "Zertifikat Deutsch, B1"
+                        Description = "Zertifikat Deutsch, B1",
+                        Category = "languages"
                     },                    
                     new Test
                     {
                         Title = "Integrale, Polinoame si Progresii",
-                        Description = "Matematica, Clasa a XII-a"
+                        Description = "Matematica, Clasa a XII-a",
+                        Category = "science"
                     },
                     new Test
                     {
                         Title = "Structuri trofice in ecosisteme antropizate",
-                        Description = "Biologie, Clasa a XII-a"
+                        Description = "Biologie, Clasa a XII-a",
+                        Category = "science"
                     },                    
                     new Test
                     {
                         Title = "Derivati functionali ai acizilor carboxilici",
-                        Description = "Chimie, Clasa a XII-a"
+                        Description = "Chimie, Clasa a XII-a",
+                        Category = "science"
                     },
                     new Test
                     {
                         Title = "Simbolism, Modernism in textul poetic si proza narativa",
-                        Description = "Limba Romana, Clasa a XII-a"
+                        Description = "Limba Romana, Clasa a XII-a",
+                        Category = "humanities"
                     },
                     new Test
                     {
                         Title = "Termodinamica si Electromagnetism",
-                        Description = "Fizica, Clasa a XII-a"
+                        Description = "Fizica, Clasa a XII-a",
+                        Category = "science"
                     },
                     new Test
                     {
                         Title = "Roci vulcanice",
-                        Description = "Geografie, Clasa a X-a"
+                        Description = "Geografie, Clasa a X-a",
+                        Category = "humanities"
                     },
                     new Test
                     {
                         Title = "Provincia romana Dacia",
-                        Description = "Istorie veche a romanilor"
+                        Description = "Istorie veche a romanilor",
+                        Category = "humanities"
                     },
                     new Test
                     {
                         Title = "Chestionar auto nr. 1 / 2021",
-                        Description = "Permise categoria B"
+                        Description = "Permise categoria B",
+                        Category = "diverse"
                     },
                     new Test
                     {
                         Title = "Test de inteligenta nr. 2 / 2021",
-                        Description = "IQ"
+                        Description = "IQ",
+                        Category = "diverse"
                     },
                     new Test
                     {
                         Title = "Test de personalitate nr. 3 /2021",
-                        Description = "Psihologie"
+                        Description = "Psihologie",
+                        Category = "personality"
                     },
                 };
 
