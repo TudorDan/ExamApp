@@ -1,5 +1,5 @@
 import React from "react";
-import About from "../about/About";
+import About from "./About";
 
 const Home = () => {
   return (
