@@ -2,8 +2,8 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
-import Loading from "../../app/layout/Loading";
-import TestStore from "../../app/stores/testStore";
+import Loading from "../../../app/layout/Loading";
+import TestStore from "../../../app/stores/testStore";
 
 interface DetailParams {
   id: string;

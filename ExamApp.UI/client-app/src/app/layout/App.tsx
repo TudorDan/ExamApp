@@ -1,9 +1,9 @@
 import { useEffect, useContext } from "react";
 import NavBar from "../../features/nav/NavBar";
 import Home from "../../features/home/Home";
-import TestList from "../../features/list/TestList";
+import TestList from "../../features/exams/list/TestList";
 import Footer from "../../features/footer/Footer";
-import TestDetails from "../../features/details/TestDetails";
+import TestDetails from "../../features/exams/details/TestDetails";
 import TestForm from "../../features/form/TestForm";
 import Loading from "./Loading";
 import TestStore from "../stores/testStore";

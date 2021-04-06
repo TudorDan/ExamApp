@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import TestStore from "../../app/stores/testStore";
+import TestStore from "../../../app/stores/testStore";
 
 const TestList: React.FC = () => {
   const testStore = useContext(TestStore);
