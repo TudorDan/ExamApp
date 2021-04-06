@@ -1,6 +1,5 @@
 ﻿using ExamApp.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace ExamApp.Data
 {
