@@ -1,6 +1,8 @@
 ﻿using ExamApp.Data;
+using ExamApp.Logic.Errors;
 using MediatR;
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +29,10 @@ namespace ExamApp.Logic.Tests
                 var test = await _context.Tests.FindAsync(request.Id);
 
                 if (test == null)
-                    throw new Exception("Could not find test");
+                    throw new RestException(HttpStatusCode.NotFound, new
+                    {
+                        activity = "Not found"
+                    });
 
                 _context.Remove(test);
 
