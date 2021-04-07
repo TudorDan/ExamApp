@@ -1,5 +1,6 @@
 ﻿using ExamApp.Data;
 using ExamApp.Domain;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Threading;
@@ -17,6 +18,16 @@ namespace ExamApp.Logic.Tests
             public string Category { get; set; }
         }
 
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(t => t.Title).NotEmpty();
+                RuleFor(t => t.Description).NotEmpty();
+                RuleFor(t => t.Category).NotEmpty();
+            }
+        }
+
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
@@ -32,7 +43,8 @@ namespace ExamApp.Logic.Tests
                 {
                     Id = request.Id,
                     Title = request.Title,
-                    Description = request.Description
+                    Description = request.Description,
+                    Category = request.Category
                 };
 
                 _context.Tests.Add(test);
