@@ -1,6 +1,9 @@
 ﻿using ExamApp.Data;
+using ExamApp.Logic.Errors;
+using FluentValidation;
 using MediatR;
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,6 +17,16 @@ namespace ExamApp.Logic.Tests
             public string Title { get; set; }
             public string Description { get; set; }
             public string Category { get; set; }
+        }
+
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(t => t.Title).NotEmpty();
+                RuleFor(t => t.Description).NotEmpty();
+                RuleFor(t => t.Category).NotEmpty();
+            }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -30,10 +43,14 @@ namespace ExamApp.Logic.Tests
                 var test = await _context.Tests.FindAsync(request.Id);
 
                 if (test == null)
-                    throw new Exception("Could not find test");
+                    throw new RestException(HttpStatusCode.NotFound, new
+                    {
+                        activity = "Not found"
+                    });
 
                 test.Title = request.Title ?? test.Title;
                 test.Description = request.Description ?? test.Description;
+                test.Category = request.Category ?? test.Category;
 
                 var success = await _context.SaveChangesAsync() > 0;
 
