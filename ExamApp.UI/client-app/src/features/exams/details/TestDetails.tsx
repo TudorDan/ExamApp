@@ -20,9 +20,11 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     loadTest(match.params.id);
   }, [loadTest, match.params.id]);
 
-  if (loadingInitial || !test) return <Loading content="Loading test..." />;
+  if (loadingInitial) return <Loading content="Loading test..." />;
 
   if (submitting) return <Loading content="Deleting test..." />;
+
+  if (!test) return <h2>Not Found</h2>;
 
   return (
     <section id="speakers-details" className="mt-5">
@@ -34,7 +36,12 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
         </div>
 
         <div className="row" id="test">
-          <div className="col-md-6 test-info">
+          <div
+            className="col-md-6 test-info"
+            style={{
+              background: `url(${process.env.PUBLIC_URL}/assets/img/speakers/${test.category}.jpg)`,
+            }}
+          >
             <div className="row justify-content-center">
               <div className="col-11 col-lg-8 position-relative">
                 <h3>{test!.category}</h3>
