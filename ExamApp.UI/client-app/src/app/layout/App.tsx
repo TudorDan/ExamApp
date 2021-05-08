@@ -15,6 +15,7 @@ import {
   withRouter,
 } from "react-router-dom";
 import NotFound from "./NotFound";
+import { ToastContainer } from "react-toastify";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const testStore = useContext(TestStore);
@@ -27,6 +28,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
 
   return (
     <>
+      <ToastContainer position="bottom-right" />
       <NavBar />
 
       <Switch>
