@@ -8,7 +8,13 @@ import TestForm from "../../features/exams/form/TestForm";
 import Loading from "./Loading";
 import TestStore from "../stores/testStore";
 import { observer } from "mobx-react-lite";
-import { Route, RouteComponentProps, withRouter } from "react-router-dom";
+import {
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter,
+} from "react-router-dom";
+import NotFound from "./NotFound";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const testStore = useContext(TestStore);
@@ -23,9 +29,9 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
     <>
       <NavBar />
 
-      <Route exact path="/" component={Home} />
+      <Switch>
+        <Route exact path="/" component={Home} />
 
-      <main id="main">
         <Route exact path="/tests" component={TestList} />
 
         <Route exact path="/tests/:id" component={TestDetails} />
@@ -36,7 +42,9 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
           path={["/createTest", "/manage/:id"]}
           component={TestForm}
         />
-      </main>
+
+        <Route component={NotFound} />
+      </Switch>
 
       <Footer />
     </>
