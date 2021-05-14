@@ -3,4 +3,5 @@
   title: string;
   description: string;
   category: string;
+  creation: string;
 }

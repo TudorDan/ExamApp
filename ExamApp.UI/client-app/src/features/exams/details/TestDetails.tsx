@@ -63,6 +63,11 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
 
               <p>
                 <i className="bi bi-signpost"></i>&nbsp;&nbsp;
+                {test!.creation}
+              </p>
+
+              <p>
+                <i className="bi bi-signpost"></i>&nbsp;&nbsp;
                 {test!.description}
               </p>
 

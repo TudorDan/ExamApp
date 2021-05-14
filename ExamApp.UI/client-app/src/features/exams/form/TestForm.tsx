@@ -29,6 +29,7 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
     title: "",
     description: "",
     category: "",
+    creation: "",
   });
 
   useEffect(() => {
