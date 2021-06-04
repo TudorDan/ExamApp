@@ -16,6 +16,7 @@ namespace ExamApp.Logic.Tests
             public string Title { get; set; }
             public string Description { get; set; }
             public string Category { get; set; }
+            public DateTime Creation { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -25,6 +26,7 @@ namespace ExamApp.Logic.Tests
                 RuleFor(t => t.Title).NotEmpty();
                 RuleFor(t => t.Description).NotEmpty();
                 RuleFor(t => t.Category).NotEmpty();
+                RuleFor(t => t.Creation).NotEmpty();
             }
         }
 
@@ -44,7 +46,8 @@ namespace ExamApp.Logic.Tests
                     Id = request.Id,
                     Title = request.Title,
                     Description = request.Description,
-                    Category = request.Category
+                    Category = request.Category,
+                    Creation = request.Creation
                 };
 
                 _context.Tests.Add(test);

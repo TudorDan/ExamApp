@@ -17,6 +17,7 @@ namespace ExamApp.Logic.Tests
             public string Title { get; set; }
             public string Description { get; set; }
             public string Category { get; set; }
+            public DateTime? Creation { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -26,6 +27,7 @@ namespace ExamApp.Logic.Tests
                 RuleFor(t => t.Title).NotEmpty();
                 RuleFor(t => t.Description).NotEmpty();
                 RuleFor(t => t.Category).NotEmpty();
+                RuleFor(t => t.Creation).NotEmpty();
             }
         }
 
@@ -51,6 +53,7 @@ namespace ExamApp.Logic.Tests
                 test.Title = request.Title ?? test.Title;
                 test.Description = request.Description ?? test.Description;
                 test.Category = request.Category ?? test.Category;
+                test.Creation = request.Creation ?? test.Creation;
 
                 var success = await _context.SaveChangesAsync() > 0;
 
