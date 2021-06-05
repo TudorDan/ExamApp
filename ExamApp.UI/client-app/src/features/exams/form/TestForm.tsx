@@ -1,5 +1,5 @@
-import React, { FormEvent, useContext, useEffect, useState } from "react";
-import { ITest } from "../../../app/models/test";
+import React, { useContext, useEffect, useState } from "react";
+import { TestFormValues } from "../../../app/models/test";
 import { v4 as uuid } from "uuid";
 import TestStore from "../../../app/stores/testStore";
 import Loading from "../../../app/layout/Loading";
@@ -7,6 +7,30 @@ import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
 import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
+import TextAreaInput from "../../../app/common/form/TextAreaInput";
+import SelectInput from "../../../app/common/form/SelectInput";
+import DateInput from "../../../app/common/form/DateInput";
+import { category } from "../../../app/common/options/categoryOptions";
+import { combineDateAndTime } from "../../../app/common/util/util";
+import {
+  combineValidators,
+  composeValidators,
+  hasLengthGreaterThan,
+  isRequired,
+} from "revalidate";
+
+const validate = combineValidators({
+  title: isRequired({ message: "The exam title is required" }),
+  description: composeValidators(
+    isRequired("Description"),
+    hasLengthGreaterThan(4)({
+      message: "Description needs to be at least 5 characters",
+    })
+  )(),
+  category: isRequired("Category"),
+  creation: isRequired("Creation"),
+  time: isRequired("Time"),
+});
 
 interface DetailParams {
   id: string;
@@ -17,58 +41,37 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
   history,
 }) => {
   const testStore = useContext(TestStore);
-  const {
-    createTest,
-    editTest,
-    submitting,
-    test: initialFormState,
-    loadTest,
-    clearTest,
-  } = testStore;
+  const { createTest, editTest, loadTest } = testStore;
 
-  const [test, setTest] = useState<ITest>({
-    id: "",
-    title: "",
-    description: "",
-    category: "",
-    creation: "",
-  });
+  const [test, setTest] = useState(new TestFormValues());
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (match.params.id && test.id.length === 0) {
-      loadTest(match.params.id).then(
-        () => initialFormState && setTest(initialFormState)
-      );
+    if (match.params.id) {
+      setLoading(true);
+
+      loadTest(match.params.id)
+        .then((test) => setTest(new TestFormValues(test)))
+        .finally(() => setLoading(false));
     }
-    return () => {
-      clearTest();
-    };
-  }, [test.id.length, loadTest, match.params.id, initialFormState, clearTest]);
-
-  // const handleSubmit = (event: any) => {
-  //   if (test.id.length === 0) {
-  //     let newTest = {
-  //       ...test,
-  //       id: uuid(),
-  //     };
-  //     createTest(newTest).then(() => history.push(`/tests/${newTest.id}`));
-  //   } else {
-  //     editTest(test).then(() => history.push(`/tests/${test.id}`));
-  //   }
-  // };
-
-  const handleInputChange = (
-    event: FormEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.currentTarget;
-    setTest({ ...test, [name]: value });
-  };
+  }, [loadTest, match.params.id]);
 
   const handleFinalFormSubmit = (values: any) => {
-    console.log(values);
+    const dateAndTime = combineDateAndTime(values.creation, values.time);
+    const { creation, time, ...test } = values;
+    test.creation = dateAndTime;
+    if (!test.id) {
+      let newTest = {
+        ...test,
+        id: uuid(),
+      };
+      createTest(newTest);
+    } else {
+      editTest(test);
+    }
   };
 
-  if (submitting) return <Loading content="Loading form..." />;
+  if (loading) return <Loading content="Loading form..." />;
 
   return (
     <section id="contact" className="section-bg mt-5">
@@ -81,8 +84,10 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
 
         <div className="form">
           <FinalForm
+            validate={validate}
+            initialValues={test}
             onSubmit={handleFinalFormSubmit}
-            render={({ handleSubmit }) => (
+            render={({ handleSubmit, invalid, pristine }) => (
               <form onSubmit={handleSubmit} className="php-email-form">
                 <div className="form-group mt-3">
                   <Field
@@ -98,37 +103,45 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
 
                 <div className="form-group mt-3">
                   <Field
-                    onChange={handleInputChange}
                     className="form-control"
                     name="description"
                     rows={5}
                     placeholder="Description"
                     value={test.description}
-                    component="textarea"
+                    component={TextAreaInput}
                     required
                   />
                 </div>
 
                 <div className="form-group mt-3">
                   <Field
-                    onChange={handleInputChange}
-                    type="text"
+                    component={SelectInput}
                     className="form-control"
                     name="category"
-                    placeholder="Category"
                     value={test.category}
-                    component="input"
-                    required
+                    options={category}
                   />
                 </div>
 
-                <div className="form-group mt-3">
-                  <input
-                    name="date"
-                    type="datetime-local"
-                    className="form-control"
-                    placeholder="Date"
+                <div className="form-group mt-3 input-group">
+                  <Field
+                    id="date-input"
+                    component={DateInput}
+                    name="creation"
+                    date={true}
+                    className="form-control p-0"
+                    placeholder="Creation"
                     value={test.creation}
+                  />
+
+                  <Field
+                    id="time-input"
+                    component={DateInput}
+                    name="time"
+                    time={true}
+                    className="form-control p-0"
+                    placeholder="Time"
+                    value={test.time}
                   />
                 </div>
 
@@ -141,10 +154,20 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 </div>
 
                 <div className="text-center">
-                  <button type="submit">Submit</button>
+                  <button
+                    disabled={loading || invalid || pristine}
+                    type="submit"
+                  >
+                    Submit
+                  </button>
 
                   <button
-                    onClick={() => history.push("/tests")}
+                    onClick={
+                      test.id
+                        ? () => history.push(`/tests/${test.id}`)
+                        : () => history.push("/tests")
+                    }
+                    disabled={loading}
                     type="button"
                     className="btn-2"
                   >
