@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 import Loading from "../../../app/layout/Loading";
 import TestStore from "../../../app/stores/testStore";
 
@@ -63,7 +64,7 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
 
               <p>
                 <i className="bi bi-signpost"></i>&nbsp;&nbsp;
-                {test!.creation}
+                {format(test!.creation, "y eeee do MMM h:mm a")}
               </p>
 
               <p>
@@ -76,7 +77,13 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                   <button className="btn-2">Edit</button>
                 </Link>
 
-                <button onClick={() => deleteTest(test!.id)} className="btn-2">
+                <button
+                  onClick={() => {
+                    deleteTest(test!.id);
+                    history.push("/tests");
+                  }}
+                  className="btn-2"
+                >
                   Delete
                 </button>
 
