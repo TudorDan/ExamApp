@@ -1348,6 +1348,39 @@ h6 {
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
+.final-form-error {
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 0 15px;
+  font-weight: bolder;
+  display: inline-flex;
+  align-items: center;
+}
+
+#select-input:first-child {
+  color: gray;
+  font-size: 0.9em;
+}
+
+#select-input:focus,
+div.rw-widget-container.rw-state-focus,
+div.rw-state-focus > div.rw-widget-container,
+div.rw-widget-container.rw-state-focus:hover,
+div.rw-state-focus > div.rw-widget-container:hover {
+  border-color: #f82249;
+  box-shadow: none;
+}
+
+#select-input,
+div.rw-widget-picker.rw-widget-container {
+  border-radius: 0;
+}
+
+#time-input {
+  margin-left: 1em;
+}
+
 #contact {
   padding: 60px 0;
 }
