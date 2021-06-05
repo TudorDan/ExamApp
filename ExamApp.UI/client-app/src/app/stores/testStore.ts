@@ -2,8 +2,10 @@ import { action, makeAutoObservable, observable, configure, runInAction, compute
 import { createContext } from 'react';
 import agent from '../api/agent';
 import { ITest } from '../models/test';
+import { history } from '../..';
+import { toast } from 'react-toastify';
 
-configure({enforceActions: 'always'});
+configure({ enforceActions: 'always' });
 
 class TestStore {
   @observable testRegistry = new Map();
@@ -16,12 +18,14 @@ class TestStore {
   }
 
   @action loadTests = async () => {
-    this.loadingInitial = true;    
+    this.loadingInitial = true;
     try {
       const tests = await agent.Tests.list();
 
-      runInAction(() => {        
+      runInAction(() => {
         tests.forEach(test => {
+          test.creation = new Date(test.creation);
+
           this.testRegistry.set(test.id, test);
         });
 
@@ -41,15 +45,23 @@ class TestStore {
 
     if (test) {
       this.test = test;
+
+      return test;
     } else {
       this.loadingInitial = true;
+
       try {
         test = await agent.Tests.details(id);
 
         runInAction(() => {
+          test.creation = new Date(test.creation);
+
           this.test = test;
+          this.testRegistry.set(test.id, test);
           this.loadingInitial = false;
         });
+
+        return test;
       } catch (error) {
         runInAction(() => {
           this.loadingInitial = false;
@@ -78,12 +90,15 @@ class TestStore {
 
         this.submitting = false;
       });
+
+      history.push(`/tests/${test.id}`);
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
       });
 
-      console.log(error);
+      toast.error('Problem submitting data');
+      console.log(error.response);
     }
   }
 
@@ -94,16 +109,19 @@ class TestStore {
 
       runInAction(() => {
         this.testRegistry.set(test.id, test);
-  
+
         this.test = test;
         this.submitting = false;
       });
+
+      history.push(`/tests/${test.id}`);
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
       });
 
-      console.log(error);
+      toast.error('Problem submitting data');
+      console.log(error.response);
     }
   }
 
@@ -114,7 +132,7 @@ class TestStore {
 
       runInAction(() => {
         this.testRegistry.delete(id);
-  
+
         this.submitting = false;
       });
     } catch (error) {
