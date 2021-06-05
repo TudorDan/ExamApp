@@ -17,7 +17,7 @@ const TextAreaInput: React.FC<IProps> = ({
         placeholder={placeholder}
         className="form-control"
       />
-      {touched && !!error && <span>{error}</span>}
+      {touched && !!error && <span className="final-form-error">{error}</span>}
     </>
   );
 };

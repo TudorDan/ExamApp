@@ -19,7 +19,7 @@ const TextInput: React.FC<IProps> = ({
         width={width}
         className="form-control"
       />
-      {touched && !!error && <span>{error}</span>}
+      {touched && !!error && <span className="final-form-error">{error}</span>}
     </>
   );
 };

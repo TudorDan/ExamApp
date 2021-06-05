@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FieldRenderProps } from "react-final-form";
 
 interface IProps extends FieldRenderProps<string, any> {}
@@ -8,13 +8,16 @@ const SelectInput: React.FC<IProps> = ({
   options,
   meta: { touched, error },
 }) => {
+  const [touch, setTouch] = useState(false);
+
   return (
     <>
       <select
         value={input.value}
+        id="select-input"
         className="form-control"
         onChange={(e) => input.onChange(e.currentTarget.value)}
-        required
+        onFocusCapture={() => setTouch(true)}
       >
         {options.map((option: any) => {
           return (
@@ -24,13 +27,16 @@ const SelectInput: React.FC<IProps> = ({
               disabled={option.value === ""}
               defaultChecked={option.value === ""}
               hidden={option.value === ""}
+              className="final-form-option"
             >
               {option.text}
             </option>
           );
         })}
       </select>
-      {touched && !!error && <span>{error}</span>}
+      {(touch || touched) && error && (
+        <span className="final-form-error">{error}</span>
+      )}
     </>
   );
 };
