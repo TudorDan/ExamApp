@@ -1,14 +1,45 @@
 ﻿using ExamApp.Domain;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ExamApp.Data
 {
     public class Seed
     {
-        public static void SeedData(DataContext context)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+            if (!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        DisplayName = "Xenophon",
+                        UserName = "xenophon",
+                        Email = "xenophon@test.com"
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Plutarch",
+                        UserName = "plutarch",
+                        Email = "plutarch@test.com"
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Suetonius",
+                        UserName = "suetonius",
+                        Email = "suetonius@test.com"
+                    }
+                };
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
+            }
+
             if (!context.Tests.Any())
             {
                 var tests = new List<Test>
