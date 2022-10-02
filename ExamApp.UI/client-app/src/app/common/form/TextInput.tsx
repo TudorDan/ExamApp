@@ -6,7 +6,6 @@ interface IProps extends FieldRenderProps<string, any> {}
 const TextInput: React.FC<IProps> = ({
   input,
   width,
-  type,
   placeholder,
   meta: { touched, error },
 }) => {
@@ -14,7 +13,7 @@ const TextInput: React.FC<IProps> = ({
     <>
       <input
         {...input}
-        type={type}
+        type={{ ...input }?.type}
         placeholder={placeholder}
         width={width}
         className="form-control"
