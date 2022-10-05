@@ -1,11 +1,18 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import TestStore from "../../../app/stores/testStore";
+import Loading from "../../../app/layout/Loading";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const TestList: React.FC = () => {
-  const testStore = useContext(TestStore);
-  const { testsUnsorted } = testStore;
+  const rootStore = useContext(RootStoreContext);
+  const { loadTests, testsUnsorted, loadingInitial } = rootStore.testStore;
+
+  useEffect(() => {
+    loadTests();
+  }, [loadTests]);
+
+  if (loadingInitial) return <Loading content="Loading Tests..." />;
 
   return (
     <section id="speakers" className="mt-5">
