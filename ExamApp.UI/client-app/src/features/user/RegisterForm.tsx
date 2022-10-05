@@ -104,7 +104,6 @@ const RegisterForm = () => {
                       Login
                     </button>
                   </div>
-                  <pre>{JSON.stringify(form.getState(), null, 2)}</pre>
                 </form>
               </div>
             </div>
