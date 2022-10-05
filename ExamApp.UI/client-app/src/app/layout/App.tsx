@@ -6,7 +6,6 @@ import Footer from "../../features/footer/Footer";
 import TestDetails from "../../features/exams/details/TestDetails";
 import TestForm from "../../features/exams/form/TestForm";
 import Loading from "./Loading";
-import TestStore from "../stores/testStore";
 import { observer } from "mobx-react-lite";
 import {
   Route,
@@ -16,15 +15,22 @@ import {
 } from "react-router-dom";
 import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
+import { RootStoreContext } from "../stores/rootStore";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
-  const testStore = useContext(TestStore);
+  const rootStore = useContext(RootStoreContext);
+  const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
+  const { getUser } = rootStore.userStore;
 
   useEffect(() => {
-    testStore.loadTests();
-  }, [testStore]);
+    if (token) {
+      getUser().finally(() => setAppLoaded());
+    } else {
+      setAppLoaded();
+    }
+  }, [getUser, setAppLoaded, token]);
 
-  if (testStore.loadingInitial) return <Loading content="Loading Tests..." />;
+  if (!appLoaded) return <Loading content="Loading App..." />;
 
   return (
     <>
