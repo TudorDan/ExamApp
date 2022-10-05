@@ -1,13 +1,20 @@
-import { action, makeAutoObservable, observable, configure, runInAction, computed } from 'mobx';
-import { createContext } from 'react';
+import { action, makeAutoObservable, observable, runInAction, computed } from 'mobx';
 import agent from '../api/agent';
 import { ITest } from '../models/test';
 import { history } from '../..';
 import { toast } from 'react-toastify';
+import { RootStore } from './rootStore';
 
-configure({ enforceActions: 'always' });
+export default class TestStore {
+  rootStore: RootStore;
+  /**
+   * Makes the rootStore accessible here
+   */
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
+    makeAutoObservable(this); // adaptation for MobX v.6
+  }
 
-class TestStore {
   @observable testRegistry = new Map();
   @observable test: ITest | null = null;
   @observable loadingInitial = false;
@@ -143,10 +150,4 @@ class TestStore {
       console.log(error);
     }
   }
-
-  constructor() {
-    makeAutoObservable(this);
-  }
 }
-
-export default createContext(new TestStore());
