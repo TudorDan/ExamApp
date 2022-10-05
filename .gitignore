@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ExamApp.API/exams.db-wal
+/ExamApp.API/exams.db-shm
