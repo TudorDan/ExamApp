@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TestFormValues } from "../../../app/models/test";
 import { v4 as uuid } from "uuid";
-import TestStore from "../../../app/stores/testStore";
 import Loading from "../../../app/layout/Loading";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
@@ -18,6 +17,7 @@ import {
   hasLengthGreaterThan,
   isRequired,
 } from "revalidate";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const validate = combineValidators({
   title: isRequired({ message: "The exam title is required" }),
@@ -40,8 +40,8 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
   history,
 }) => {
-  const testStore = useContext(TestStore);
-  const { createTest, editTest, loadTest } = testStore;
+  const rootStore = useContext(RootStoreContext);
+  const { createTest, editTest, loadTest } = rootStore.testStore;
 
   const [test, setTest] = useState(new TestFormValues());
   const [loading, setLoading] = useState(false);
