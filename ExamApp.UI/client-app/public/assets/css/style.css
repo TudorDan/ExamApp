@@ -243,7 +243,7 @@ h6 {
   padding: 10px 0 10px 12px;
 }
 
-.navbar a {
+.navbar a, #logout-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -257,13 +257,18 @@ h6 {
   padding: 6px 4px;
 }
 
+#logout-btn {
+  background-color: transparent;
+  border: 0;
+}
+
 .navbar a i {
   font-size: 12px;
   line-height: 0;
   margin-left: 5px;
 }
 
-.navbar > ul > li > a:before {
+.navbar > ul > li > a:before, #logout-btn:before {
   content: "";
   position: absolute;
   width: 0;
@@ -275,14 +280,14 @@ h6 {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.navbar a:hover:before,
+.navbar a:hover:before, #logout-btn:hover:before,
 .navbar li:hover > a:before,
 .navbar .active:before {
   visibility: visible;
   width: 100%;
 }
 
-.navbar a:hover,
+.navbar a:hover, #logout-btn:hover,
 .navbar .active,
 .navbar li:hover > a {
   color: #fff;
@@ -1345,6 +1350,26 @@ h6 {
   background-color: #e0072f;
 }
 
+/* STUDENT ADDED */
+#buy-ticket-modal .btn, #register-modal .btn {
+  font-size: 15px;
+  border-radius: 50px;
+  padding: 10px 40px;
+  transition: all 0.2s;
+  background-color: #f82249;
+  border: 0;
+  color: #fff;
+}
+
+#buy-ticket-modal .btn:hover, #register-modal .btn:hover {
+  background-color: #e0072f;
+}
+
+#navbar>ul>li span {
+  color:rgba(202, 206, 221, 0.8);
+}
+/* END OF STUDENT ADDED */
+
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
@@ -1796,20 +1821,22 @@ div.rw-widget-picker.rw-widget-container {
 }
 
 #loading .loading {
+  margin-top: 25px;
   display: none;
   background: #fff;
   text-align: center;
   padding: 15px;
+  font-weight: 600;
 }
 
 #loading .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
   margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
+  border: 8px solid #18d26e;
   border-top-color: #eee;
   -webkit-animation: animate-loading 1s linear infinite;
   animation: animate-loading 1s linear infinite;
