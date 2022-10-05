@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import Loading from "../../../app/layout/Loading";
-import TestStore from "../../../app/stores/testStore";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 interface DetailParams {
   id: string;
@@ -14,8 +14,9 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
   history,
 }) => {
-  const testStore = useContext(TestStore);
-  const { test, deleteTest, submitting, loadTest, loadingInitial } = testStore;
+  const rootStore = useContext(RootStoreContext);
+  const { test, deleteTest, submitting, loadTest, loadingInitial } =
+    rootStore.testStore;
 
   useEffect(() => {
     loadTest(match.params.id);
