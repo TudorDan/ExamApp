@@ -45,6 +45,7 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
 
   const [test, setTest] = useState(new TestFormValues());
   const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (match.params.id) {
@@ -57,6 +58,7 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
   }, [loadTest, match.params.id]);
 
   const handleFinalFormSubmit = (values: any) => {
+    setSubmitting(true);
     const dateAndTime = combineDateAndTime(values.creation, values.time);
     const { creation, time, ...test } = values;
     test.creation = dateAndTime;
@@ -145,20 +147,24 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   />
                 </div>
 
-                <div className="my-3">
-                  <div className="loading">Loading</div>
-                  <div className="error-message"></div>
-                  <div className="sent-message">
-                    Your test has been created. Thank you!
-                  </div>
-                </div>
-
                 <div className="text-center">
                   <button
                     disabled={loading || invalid || pristine}
                     type="submit"
+                    style={{ minHeight: "44px" }}
                   >
-                    Submit
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                      style={{
+                        display: submitting ? "block" : "none",
+                        margin: "0 20px",
+                      }}
+                    ></span>
+                    <span className={submitting ? "visually-hidden" : ""}>
+                      Submit
+                    </span>
                   </button>
 
                   <button
