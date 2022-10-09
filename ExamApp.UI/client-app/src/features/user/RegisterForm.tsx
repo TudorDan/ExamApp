@@ -36,12 +36,12 @@ const RegisterForm = () => {
       validate={validate}
       render={({
         handleSubmit,
-        form,
         submitError,
         invalid,
         pristine,
         dirtySinceLastSubmit,
         submitSucceeded,
+        submitting,
       }) => (
         <div id="register-modal" className="modal fade">
           <div className="modal-dialog" role="document">
@@ -100,8 +100,20 @@ const RegisterForm = () => {
                       disabled={(invalid && !dirtySinceLastSubmit) || pristine}
                       type="submit"
                       className="btn"
+                      style={{ minHeight: "44px" }}
                     >
-                      Login
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                        style={{
+                          display: submitting ? "block" : "none",
+                          margin: "0 20px",
+                        }}
+                      ></span>
+                      <span className={submitting ? "visually-hidden" : ""}>
+                        Register
+                      </span>
                     </button>
                   </div>
                 </form>
