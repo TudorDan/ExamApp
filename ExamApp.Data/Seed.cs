@@ -11,6 +11,45 @@ namespace ExamApp.Data
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+            if (!context.Questions.Any())
+            {
+                var questions = new List<Question>
+                {
+                    new Question
+                    {
+                        Content = "Apararea romana a privinciei cuprindea legiunea:",
+                        TestId = new Guid("F2356DA0-717A-4BB1-AAB9-3CC83879D671"),
+                        Answer1 = "Legiunea III Gallica",
+                        Answer2 = "Legiunea a VIII-a Augusta",
+                        Answer3 = "Legiunea a XI-a Claudia",
+                        Answer4 = "Legiunea a XIII-a Gemina",
+                        CorrectAnswer = 4
+                    },
+                    new Question
+                    {
+                        Content = "Conducatorul provinciei Dacia era:",
+                        TestId = new Guid("F2356DA0-717A-4BB1-AAB9-3CC83879D671"),
+                        Answer1 = "Praefectus de rang ecvestru",
+                        Answer2 = "Legatus augusti pro praetore de rang consular",
+                        Answer3 = "Tribun de rang senatorial",
+                        Answer4 = "Procurator presidial de rang pretorian",
+                        CorrectAnswer = 2
+                    },
+                    new Question
+                    {
+                        Content = "Teritoriul Daciei Porolissensis cuprindea:",
+                        TestId = new Guid("F2356DA0-717A-4BB1-AAB9-3CC83879D671"),
+                        Answer1 = "Banatul si Moesia Superioara",
+                        Answer2 = "Moesia Inferioara si vestul Olteniei" ,
+                        Answer3 = "Cursul superior al Muresului si valea Ariesului",
+                        Answer4 = "Limesul Transalutanus",
+                        CorrectAnswer = 3
+                    }
+                };
+                context.Questions.AddRange(questions);
+                context.SaveChanges();
+            }
+
             if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
