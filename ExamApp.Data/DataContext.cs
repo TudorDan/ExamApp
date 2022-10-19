@@ -11,6 +11,7 @@ namespace ExamApp.Data
         }
 
         public DbSet<Test> Tests { get; set; }
+        public DbSet<Question> Questions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
