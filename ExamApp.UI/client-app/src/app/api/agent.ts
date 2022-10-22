@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { history } from '../..';
+import { IQuestion } from '../models/question';
 import { ITest } from '../models/test'
 import { IUser, IUserFormValues } from '../models/user';
 
@@ -58,6 +59,13 @@ const User = {
   register: (user: IUserFormValues): Promise<IUser> => requests.post('/user/register', user)
 }
 
+const Questions = {
+  list: (testId: string): Promise<IQuestion[]> => requests.get(`/questions/${testId}`),
+  create: (question: IQuestion) => requests.post('/questions', question),
+  update: (question: IQuestion) => requests.put(`/questions/${question.id}`, question),
+  delete: (id: string) => requests.del(`/questions/${id}`)
+}
+
 export default {
-  Tests, User
+  Tests, User, Questions
 }
