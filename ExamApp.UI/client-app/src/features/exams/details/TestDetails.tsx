@@ -48,9 +48,12 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
               <div className="col-11 col-lg-8 position-relative">
                 <h3>{test!.category}</h3>
 
-                <a href="/" className="about-btn scrollto">
-                  Take the test
-                </a>
+                <Link
+                  to={`/questions/${test.id}`}
+                  className="about-btn scrollto"
+                >
+                  View the test
+                </Link>
               </div>
             </div>
           </div>
