@@ -6,7 +6,7 @@ export interface IQuestion {
     answer2: string;
     answer3: string;
     answer4: string;
-    correctAnswer: string;
+    correctAnswer: number;
 }
 
 export interface IQuestionFormValues {
@@ -15,5 +15,19 @@ export interface IQuestionFormValues {
     answer2: string;
     answer3: string;
     answer4: string;
-    correctAnswer: string;
+    correctAnswer: number;
+}
+
+export class QuestionFormValues implements IQuestionFormValues {
+    id?: string = undefined;
+    content: string = '';
+    answer1: string = '';
+    answer2: string = '';
+    answer3: string = '';
+    answer4: string = '';
+    correctAnswer: number = undefined!;
+
+    constructor(init?: IQuestionFormValues) {
+        Object.assign(this, init);
+    }
 }
