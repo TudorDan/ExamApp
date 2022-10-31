@@ -17,6 +17,7 @@ import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
 import { RootStoreContext } from "../stores/rootStore";
 import QuestionList from "../../features/exams/list/QuestionList";
+import QuestionForm from "../../features/exams/form/QuestionForm";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -53,6 +54,8 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         />
 
         <Route exact path="/questions/:id" component={QuestionList} />
+
+        <Route exact path="/questions/create/:id" component={QuestionForm} />
 
         <Route component={NotFound} />
       </Switch>
