@@ -49,7 +49,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
     const { correctAnswer } = values;
     values.correctAnswer = Number(correctAnswer);
     if (!values.id) {
-      setQuestionId("");
+      setQuestionId("create");
       let newQuestion = { ...values, id: uuid(), testId: test?.id! };
       createQuestion(newQuestion);
     } else {
@@ -277,6 +277,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
 
                         <button
                           onClick={() => {
+                            setQuestionId(`d${question.id}`);
                             deleteQuestion(question.id);
                             history.push(
                               `/questions/create/${question.testId}`
@@ -285,7 +286,27 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                           type="button"
                           className="btn-2"
                         >
-                          Delete
+                          <span
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                            style={{
+                              display:
+                                submitting && questionId === `d${question.id}`
+                                  ? "block"
+                                  : "none",
+                              margin: "0 20px",
+                            }}
+                          ></span>
+                          <span
+                            className={
+                              submitting && questionId === `d${question.id}`
+                                ? "visually-hidden"
+                                : ""
+                            }
+                          >
+                            Delete
+                          </span>
                         </button>
                       </div>
                     </form>
@@ -381,7 +402,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                             aria-hidden="true"
                             style={{
                               display:
-                                submitting && questionId === ""
+                                submitting && questionId === "create"
                                   ? "block"
                                   : "none",
                               margin: "0 20px",
@@ -389,7 +410,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                           ></span>
                           <span
                             className={
-                              submitting && questionId === ""
+                              submitting && questionId === "create"
                                 ? "visually-hidden"
                                 : ""
                             }
