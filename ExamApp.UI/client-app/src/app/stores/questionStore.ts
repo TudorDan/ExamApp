@@ -26,6 +26,7 @@ export default class QuestionStore {
 
     @action loadQuestions = async (testId: string) => {
         this.loadingInitial = true;
+        this.questionRegistry = new Map();
         try {
             const questions = await agent.Questions.list(testId);
 
@@ -56,7 +57,7 @@ export default class QuestionStore {
                 this.submitting = false;
             });
 
-            history.push(`/questions/${question.testId}`);
+            history.push(`/questions/create/${question.testId}`);
         } catch (error) {
             runInAction(() => {
                 this.submitting = false;
@@ -79,7 +80,7 @@ export default class QuestionStore {
                 this.submitting = false;
             });
 
-            history.push(`/questions/${question.testId}`);
+            history.push(`/questions/create/${question.testId}`);
         } catch (error) {
             runInAction(() => {
                 this.submitting = false;

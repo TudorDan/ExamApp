@@ -9,25 +9,17 @@ export interface IQuestion {
     correctAnswer: number;
 }
 
-export interface IQuestionFormValues {
-    content: string;
-    answer1: string;
-    answer2: string;
-    answer3: string;
-    answer4: string;
-    correctAnswer: number;
-}
-
-export class QuestionFormValues implements IQuestionFormValues {
+export class QuestionFormValues implements Partial<IQuestion> {
     id?: string = undefined;
     content: string = '';
+    testId?: string = undefined;
     answer1: string = '';
     answer2: string = '';
     answer3: string = '';
     answer4: string = '';
     correctAnswer: number = undefined!;
 
-    constructor(init?: IQuestionFormValues) {
+    constructor(init?: IQuestion) {
         Object.assign(this, init);
     }
 }

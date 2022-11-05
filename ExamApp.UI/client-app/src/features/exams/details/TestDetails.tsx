@@ -52,7 +52,14 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                   to={`/questions/${test.id}`}
                   className="about-btn scrollto"
                 >
-                  View the test
+                  View questions
+                </Link>
+
+                <Link
+                  to={`/questions/create/${test.id}`}
+                  className="about-btn scrollto"
+                >
+                  Add questions
                 </Link>
               </div>
             </div>
@@ -78,7 +85,9 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
 
               <div className="social d-flex mt-5 justify-content-around">
                 <Link to={`/manage/${test.id}`}>
-                  <button className="btn-2">Edit</button>
+                  <button className="btn-2">
+                    {"\u00A0\u00A0\u00A0"}Edit{"\u00A0\u00A0\u00A0"}
+                  </button>
                 </Link>
 
                 <button
@@ -86,7 +95,7 @@ const TestDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                     deleteTest(test!.id);
                     history.push("/tests");
                   }}
-                  className="btn-2"
+                  className="btn-2 ms-4"
                 >
                   Delete
                 </button>
