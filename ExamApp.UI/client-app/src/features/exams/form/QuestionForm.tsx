@@ -153,7 +153,27 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                         type="submit"
                         className="btn-2"
                       >
-                        Submit
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                          style={{
+                            display:
+                              submitting && questionId === "create"
+                                ? "block"
+                                : "none",
+                            margin: "0 20px",
+                          }}
+                        ></span>
+                        <span
+                          className={
+                            submitting && questionId === "create"
+                              ? "visually-hidden"
+                              : ""
+                          }
+                        >
+                          Submit
+                        </span>
                       </button>
 
                       <button
@@ -322,8 +342,6 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 <FinalForm
                   validate={validate}
                   onSubmit={handleFinalFormSubmit}
-                  initialValues={null}
-                  keepDirtyOnReinitialize={false}
                   render={({ handleSubmit, invalid, pristine }) => (
                     <form
                       onSubmit={handleSubmit}
