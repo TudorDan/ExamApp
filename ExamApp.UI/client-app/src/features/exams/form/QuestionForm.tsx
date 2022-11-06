@@ -8,6 +8,7 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Field, Form as FinalForm } from "react-final-form";
 import { combineValidators, isRequired } from "revalidate";
 import TextInput from "../../../app/common/form/TextInput";
+import { values } from "mobx";
 
 const validate = combineValidators({
   content: isRequired({ message: "Question content is required" }),
@@ -342,9 +343,12 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 <FinalForm
                   validate={validate}
                   onSubmit={handleFinalFormSubmit}
-                  render={({ handleSubmit, invalid, pristine }) => (
+                  render={({ handleSubmit, invalid, pristine, form }) => (
                     <form
-                      onSubmit={handleSubmit}
+                      onSubmit={async (e) => {
+                        await handleSubmit(e);
+                        form.restart();
+                      }}
                       className="php-email-form question-form mt-3"
                     >
                       <div className="form-group mt-3">
