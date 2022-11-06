@@ -1741,17 +1741,6 @@ div.rw-widget-picker.rw-widget-container {
   color: #fff;
 }
 
-.question-form {
-  border: 0.1rem solid rgba(202, 206, 221, 0.8);
-  border-radius: 0.25rem;
-  box-shadow: 10px 5px 5px rgba(202, 206, 221, 0.8);
-  }
-
-#schedule>div>div.tab-content.row.justify-content-center>div>form div input {
-  max-width: 95%;
-  margin: 0 auto;
-}
-
 @media (max-width: 574px) {
   #test .test-info h3 {
     font-size: 24px;
@@ -1804,6 +1793,29 @@ div.rw-widget-picker.rw-widget-container {
 .btn-2:hover {
   background: #f82249;
   color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Questions Section
+--------------------------------------------------------------*/
+.question-form {
+  border: 0.1rem solid rgba(202, 206, 221, 0.8);
+  border-radius: 0.25rem;
+  box-shadow: 10px 5px 5px rgba(202, 206, 221, 0.8);
+}
+
+#schedule>div>div.tab-content.row.justify-content-center>div>form div input {
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+#schedule>div>div.tab-content.row.justify-content-center>div>form div input:focus {
+  border-color: #f82249;
+  box-shadow: none;
+}
+
+#schedule>div>div.tab-content.row.justify-content-center div form div span.final-form-error {
+  margin-left: 1.5rem;
 }
 
 /*--------------------------------------------------------------
