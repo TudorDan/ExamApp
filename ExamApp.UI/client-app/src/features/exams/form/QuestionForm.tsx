@@ -6,9 +6,14 @@ import Loading from "../../../app/layout/Loading";
 import { QuestionFormValues } from "../../../app/models/question";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { Field, Form as FinalForm } from "react-final-form";
-import { combineValidators, isRequired } from "revalidate";
+import {
+  combineValidators,
+  composeValidators,
+  isNumeric,
+  isRequired,
+  matchesPattern,
+} from "revalidate";
 import TextInput from "../../../app/common/form/TextInput";
-import { values } from "mobx";
 
 const validate = combineValidators({
   content: isRequired({ message: "Question content is required" }),
@@ -16,7 +21,11 @@ const validate = combineValidators({
   answer2: isRequired("Answer 2"),
   answer3: isRequired("Answer3"),
   answer4: isRequired("Answer4"),
-  correctAnswer: isRequired("Correct Answer"),
+  correctAnswer: composeValidators(
+    isRequired("Correct Answer"),
+    isNumeric("Correct Answer"),
+    matchesPattern(/^[1-4]+$/)("Correct Answer")
+  )(),
 });
 
 interface DetailParams {
@@ -87,7 +96,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                     onSubmit={handleSubmit}
                     className="php-email-form question-form mt-3"
                   >
-                    <h4 className="text-center mt-1">Item 1</h4>
+                    <h4 className="text-center mt-3">Item 1</h4>
                     <div className="form-group mt-3">
                       <Field
                         type="text"
@@ -149,9 +158,9 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                       />
                     </div>
 
-                    <div className="text-center mt-3 mb-2">
+                    <div className="text-center my-3">
                       <button
-                        disabled={invalid || pristine}
+                        disabled={invalid || pristine || submitting}
                         type="submit"
                         className="btn-2"
                       >
@@ -201,7 +210,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                       onSubmit={handleSubmit}
                       className="php-email-form question-form my-3"
                     >
-                      <h4 className="text-center mt-1">Item {index + 1}</h4>
+                      <h4 className="text-center mt-3">Item {index + 1}</h4>
                       <div className="form-group mt-3">
                         <Field
                           type="text"
@@ -269,9 +278,9 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                         />
                       </div>
 
-                      <div className="text-center mt-3 mb-2">
+                      <div className="text-center my-3">
                         <button
-                          disabled={invalid || pristine}
+                          disabled={invalid || pristine || submitting}
                           type="submit"
                           className="btn-2"
                         >
@@ -353,7 +362,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                       }}
                       className="php-email-form question-form mt-3"
                     >
-                      <h4 className="text-center mt-1">
+                      <h4 className="text-center mt-3">
                         Item {questionsUnsorted.length + 1}
                       </h4>
                       <div className="form-group mt-3">
@@ -417,9 +426,9 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                         />
                       </div>
 
-                      <div className="text-center mt-3 mb-2">
+                      <div className="text-center my-3">
                         <button
-                          disabled={invalid || pristine}
+                          disabled={invalid || pristine || submitting}
                           type="submit"
                           className="btn-2"
                         >
@@ -450,7 +459,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   )}
                 />
 
-                <div className="mt-3 text-center">
+                <div className="mt-5 text-center">
                   <button
                     onClick={() => history.push(`/tests/${test?.id}`)}
                     type="button"
