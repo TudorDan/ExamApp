@@ -147,7 +147,7 @@ const TestForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   />
                 </div>
 
-                <div className="text-center">
+                <div className="text-center mt-3">
                   <button
                     disabled={loading || invalid || pristine}
                     type="submit"
