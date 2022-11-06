@@ -47,8 +47,9 @@ const QuestionList: React.FC<RouteComponentProps<DetailParams>> = ({
                 </h4>
               </div>
             ) : (
-              questionsUnsorted.map((question) => (
+              questionsUnsorted.map((question, index) => (
                 <div key={question.id} className="row schedule-item">
+                  <h3 className="my-1 text-center">Item {index + 1}</h3>
                   <h4>{question.content}</h4>
 
                   <div className="form-check">

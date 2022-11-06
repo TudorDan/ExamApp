@@ -87,6 +87,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                     onSubmit={handleSubmit}
                     className="php-email-form question-form mt-3"
                   >
+                    <h4 className="text-center mt-1">Item 1</h4>
                     <div className="form-group mt-3">
                       <Field
                         type="text"
@@ -189,7 +190,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 )}
               />
             ) : (
-              questionsUnsorted.map((question) => (
+              questionsUnsorted.map((question, index) => (
                 <FinalForm
                   key={question.id}
                   validate={validate}
@@ -198,8 +199,9 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   render={({ handleSubmit, invalid, pristine }) => (
                     <form
                       onSubmit={handleSubmit}
-                      className="php-email-form question-form mt-3"
+                      className="php-email-form question-form my-3"
                     >
+                      <h4 className="text-center mt-1">Item {index + 1}</h4>
                       <div className="form-group mt-3">
                         <Field
                           type="text"
@@ -351,6 +353,9 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                       }}
                       className="php-email-form question-form mt-3"
                     >
+                      <h4 className="text-center mt-1">
+                        Item {questionsUnsorted.length + 1}
+                      </h4>
                       <div className="form-group mt-3">
                         <Field
                           type="text"
@@ -445,7 +450,7 @@ const QuestionForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   )}
                 />
 
-                <div className="mt-5 text-center">
+                <div className="mt-3 text-center">
                   <button
                     onClick={() => history.push(`/tests/${test?.id}`)}
                     type="button"
