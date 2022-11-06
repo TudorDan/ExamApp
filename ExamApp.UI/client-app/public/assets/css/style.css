@@ -1742,7 +1742,14 @@ div.rw-widget-picker.rw-widget-container {
 }
 
 .question-form {
-  border: 0.1rem solid #f82249;
+  border: 0.1rem solid rgba(202, 206, 221, 0.8);
+  border-radius: 0.25rem;
+  box-shadow: 10px 5px 5px rgba(202, 206, 221, 0.8);
+  }
+
+#schedule>div>div.tab-content.row.justify-content-center>div>form div input {
+  max-width: 95%;
+  margin: 0 auto;
 }
 
 @media (max-width: 574px) {
