@@ -8,12 +8,12 @@
 1. ### [Description](#Description)
 2. ### [Technologies used](#Technologies-used)
 3. ### [Installation](#Installation)
-4. ### [Starting the solution](#Starting-the-soultion)
+4. ### [Starting the solution](#Starting-the-solution)
 5. ### [Implementation](#Implementation)
    
 ---
 
-## Description
+### Description
 
 The aim of this project is an application both for the classical school education system, as 
 well as any other oranisation requiring online tests on diverse topics. 
@@ -22,7 +22,7 @@ A teacher or mentor can have an online test class students with evidence of the 
 
 ---
 
-## Technologies used
+### Technologies used
 
 - Back-End section was created using:
 .NET Core 3.1, Swagger, SQL Server, Entity Framework Core, EntityFramework Identity, JWT Tokens
@@ -37,7 +37,7 @@ The web design was implemented from a [BootstrapMade](https://bootstrapmade.com/
 
 ---
 
-## Installation
+### Installation
 
 In order for this project to run, you need an SQL Lite localdb connection to your IDE.
 <br/><br/>
@@ -54,7 +54,7 @@ npm update
 
 ---
 
-## Starting the solution
+### Starting the solution
 
 Set __ExamApp.Domain__ as dependency for __ExamApp.Data__ and __ExamApp.Logic__.
 <br/><br/>
@@ -65,7 +65,7 @@ as the first project and __ExamApp.UI__ as the second.
 
 ---
 
-## Implementaton
+## Implementation
 
 Swagger:
 ![Swagger](swagger.png)
