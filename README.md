@@ -1,4 +1,4 @@
-# Tech Interview Workbook
+# Exam App project
 
 ###### This is an individual project created as part of Codecool's Job Hunt module.
 
